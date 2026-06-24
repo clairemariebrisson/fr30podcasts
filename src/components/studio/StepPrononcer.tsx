@@ -4,21 +4,14 @@ import { useState } from "react";
 import { PRON, PRON_DEFAUT, METACOG } from "@/data/podcast0";
 import { useStudio } from "@/components/studio-context";
 import { useRecorder } from "@/components/use-recorder";
+import { useFrenchVoices } from "@/components/use-french-voices";
 import { Gloss } from "@/components/Gloss";
+import { speakFrench } from "@/lib/speech";
 import { normalize, splitSentences } from "@/lib/studio";
-
-// Lecture à voix haute par le navigateur (synthèse vocale).
-function speak(text: string) {
-  if (typeof window === "undefined" || !window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "fr-FR";
-  u.rate = 0.9;
-  window.speechSynthesis.speak(u);
-}
 
 export default function StepPrononcer() {
   const { fullScript } = useStudio();
+  const { voices, voice, voiceURI, choose } = useFrenchVoices();
   const norm = normalize(fullScript);
 
   // Mots difficiles présents dans le script (sinon, sélection par défaut).
@@ -32,6 +25,48 @@ export default function StepPrononcer() {
 
   return (
     <div className="space-y-10">
+      {/* Choix de la voix */}
+      {voices.length > 0 ? (
+        <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+          <Gloss
+            as="label"
+            en="Reading voice"
+            className="text-sm font-semibold text-foreground"
+            glossClassName="ml-1 inline italic font-normal text-muted"
+          >
+            Voix de lecture :
+          </Gloss>
+          <select
+            value={voiceURI}
+            onChange={(e) => choose(e.target.value)}
+            className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:border-primary focus:outline-none"
+          >
+            {voices.map((v) => (
+              <option key={v.voiceURI} value={v.voiceURI}>
+                {v.name} ({v.lang})
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            onClick={() => speakFrench("Bonjour, voici votre modèle de lecture.", voice)}
+            className="rounded-full bg-primary-soft px-3 py-1 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
+          >
+            ▶ Tester
+          </button>
+        </div>
+      ) : (
+        <Gloss
+          en="No French voice is installed on this device, so the model audio may sound off. On a Mac: System Settings → Accessibility → Spoken Content → System Voice → Manage Voices, then add a French voice."
+          className="rounded-xl border border-primary/30 bg-primary-soft/40 p-4 text-sm text-foreground/85"
+        >
+          Aucune voix française n&apos;est installée sur cet appareil : le modèle
+          audio risque de mal prononcer. Sur un Mac : Réglages → Accessibilité →
+          Contenu énoncé → Voix du système → Gérer les voix, puis ajoutez une
+          voix française.
+        </Gloss>
+      )}
+
       {/* Mots difficiles */}
       <div>
         <Gloss
@@ -60,7 +95,7 @@ export default function StepPrononcer() {
                 </p>
                 <button
                   type="button"
-                  onClick={() => speak(p.mot)}
+                  onClick={() => speakFrench(p.mot, voice)}
                   className="rounded-full bg-primary-soft px-3 py-1 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
                 >
                   ▶ Écouter
@@ -74,12 +109,20 @@ export default function StepPrononcer() {
       </div>
 
       {/* Répétition phrase par phrase */}
-      {sentences.length > 0 && <Rehearsal sentences={sentences} />}
+      {sentences.length > 0 && (
+        <Rehearsal sentences={sentences} voice={voice} />
+      )}
     </div>
   );
 }
 
-function Rehearsal({ sentences }: { sentences: string[] }) {
+function Rehearsal({
+  sentences,
+  voice,
+}: {
+  sentences: string[];
+  voice: SpeechSynthesisVoice | null;
+}) {
   const [i, setI] = useState(0);
   const rec = useRecorder();
   const sentence = sentences[i];
@@ -110,7 +153,7 @@ function Rehearsal({ sentences }: { sentences: string[] }) {
         <div className="mt-4 flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={() => speak(sentence)}
+            onClick={() => speakFrench(sentence, voice)}
             className="rounded-full bg-surface px-4 py-2 text-sm font-medium text-primary shadow-sm transition-colors hover:bg-primary hover:text-white"
           >
             ▶ Écouter le modèle
