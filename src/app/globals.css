@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Mode sombre piloté par la classe `.dark` sur <html> (et non par la
+   préférence système), pour que le bouton de bascule fonctionne. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #faf7f2;
   --foreground: #2a2622;
@@ -10,6 +14,20 @@
   --accent: #1f6f6f;          /* teal */
   --accent-soft: #e2f0ef;
   --muted: #756b5f;
+}
+
+/* En mode sombre, on redéfinit les mêmes variables : tout le site (qui
+   utilise déjà var(--…)) s'adapte sans toucher aux composants. */
+.dark {
+  --background: #1b1714;
+  --foreground: #f1ebe2;
+  --surface: #251f1b;
+  --border: #3a322b;
+  --primary: #e79ab0;        /* bordeaux éclairci pour le fond sombre */
+  --primary-soft: #3b2630;
+  --accent: #5ec8c8;          /* teal éclairci */
+  --accent-soft: #18302f;
+  --muted: #a99d8e;
 }
 
 @theme inline {

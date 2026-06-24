@@ -5,7 +5,6 @@ export const meta = {
   number: 0,
   title: "Podcast 0",
   subtitle: "Expérimenter le podcasting",
-  dueDate: "21 septembre",
   length: "épisode de 1 à 2 minutes",
 };
 
@@ -39,6 +38,40 @@ export const structuresUnite = [
     fonction: "une réaction, une nuance",
     structure: "le subjonctif de l’émotion et du doute",
     exemple: "",
+  },
+];
+
+// Énoncés « Je peux… » — ce que ce podcast vous permet de faire.
+// Choisis parmi les fonctions linguistiques de l'unité, alignés sur les
+// structures que « Vérifier » repère et sur la grille d'évaluation.
+// `en` = glose anglaise (affichée en mode anglais).
+export type CanDo = { fr: string; en: string; structure: string };
+
+export const canDo: CanDo[] = [
+  {
+    fr: "Je peux poser une question d'accroche pour capter l'attention de l'auditeur.",
+    en: "I can ask a hook question to capture the listener's attention.",
+    structure: "les formes interrogatives",
+  },
+  {
+    fr: "Je peux exprimer et rapporter une opinion — ce que je pense, ce qu'on m'a dit.",
+    en: "I can express and report an opinion — what I think, what I've been told.",
+    structure: "les verbes déclaratifs et d'opinion (+ indicatif)",
+  },
+  {
+    fr: "Je peux distinguer ce dont je suis certain.e de ce dont je doute.",
+    en: "I can distinguish what I'm certain of from what I doubt.",
+    structure: "la certitude (+ indicatif) et le doute (+ subjonctif)",
+  },
+  {
+    fr: "Je peux réagir avec une émotion ou une nuance.",
+    en: "I can react with an emotion or a nuance.",
+    structure: "le subjonctif de l'émotion et du doute",
+  },
+  {
+    fr: "Je peux dire ce que je veux accomplir et ce qu'il faut que je fasse.",
+    en: "I can say what I want to achieve and what I need to do.",
+    structure: "il faut que / je veux que (+ subjonctif)",
   },
 ];
 
@@ -130,7 +163,7 @@ export const recording = {
     },
   ],
   contact:
-    "If you have any questions at any time, feel free to contact the Course Head, Dr. Claire-Marie Brisson (cmbrisson@fas.harvard.edu), who is herself a seasoned podcaster. She will be able to answer any questions — technical or otherwise — regarding podcast episodes. 🙂",
+    "If you have any questions at any time, feel free to contact the Course Head, Dr. Claire-Marie Brisson (cmbrisson@fas.harvard.edu), who is herself a seasoned podcaster. She will be able to answer any questions — technical or otherwise — regarding podcast episodes.",
 };
 
 export const grilleCriteres = [
@@ -187,3 +220,134 @@ export const grilleNiveaux = [
   { label: "Acceptable", points: "2,6 – 2,2" },
   { label: "À retravailler", points: "2 – 0" },
 ];
+
+/* ============================================================================
+ *  STUDIO — tout ce qui est modifiable se trouve ci-dessous.
+ *  Pour adapter le studio, éditez ces tables (pas de code à toucher) :
+ *    QUALITES  → la banque de qualités (déjà définie plus haut : `qualites`)
+ *    HOOKS     → les amorces d'accroche proposées dans « Construire »
+ *    RX        → les structures de l'Unité 1 repérées dans « Vérifier »
+ *    PRON      → les mots difficiles + découpage + astuce dans « Prononcer »
+ *    CHECKS    → l'auto-vérification finale de « Prêt.e »
+ *    WPS       → débit de lecture (mots/seconde) pour estimer les durées
+ * ========================================================================== */
+
+// Les six étapes du studio, dans l'ordre. `sous_en` = glose anglaise (mode EN).
+export const STUDIO_STEPS = [
+  { id: "construire", titre: "Construire", sous: "Bâtir votre script", sous_en: "Build your script" },
+  { id: "verifier", titre: "Vérifier", sous: "Qu'est-ce que tu remarques ?", sous_en: "What do you notice?" },
+  { id: "oraliser", titre: "Oraliser", sous: "Rendre vos phrases parlables", sous_en: "Make your sentences speakable" },
+  { id: "decouper", titre: "Découper", sous: "Pauses et rythme", sous_en: "Pauses and pacing" },
+  { id: "prononcer", titre: "Prononcer", sous: "Mots difficiles et répétition", sous_en: "Tricky words and rehearsal" },
+  { id: "pret", titre: "Prêt.e", sous: "Auto-vérification avant d'enregistrer", sous_en: "Self-check before recording" },
+] as const;
+
+export type StepId = (typeof STUDIO_STEPS)[number]["id"];
+
+// HOOKS — amorces d'accroche cliquables (insérées dans l'intro).
+export const HOOKS: string[] = [
+  "Qui aurait pensé que… ?",
+  "Et si je vous disais que… ?",
+  "Vous êtes-vous déjà demandé… ?",
+  "Saviez-vous que… ?",
+  "Imaginez un instant que… ",
+  "Pourquoi est-ce que… ?",
+];
+
+// RX — structures de l'Unité 1 que « Vérifier » essaie de repérer.
+// `test` = expression régulière ; si elle ne trouve rien, on propose `essayer`.
+// L'entrée « qualites » est spéciale (on compte les qualités choisies, pas une regex).
+export type RxRule = {
+  id: string;
+  label: string;
+  test?: RegExp;
+  essayer: string;
+  exemple: string;
+};
+
+export const RX: RxRule[] = [
+  {
+    id: "interro",
+    label: "Une question d'accroche (formes interrogatives)",
+    test: /\?|\bqui aurait\b|\best-ce que\b|\bqu['’]est-ce\b|\bpourquoi\b|\bcomment\b/i,
+    essayer: "Ajoutez une vraie question pour accrocher l'auditeur.",
+    exemple: "« Qui aurait pensé que moi, … ? »",
+  },
+  {
+    id: "opinion",
+    label: "Verbes d'opinion / déclaratifs",
+    test: /\b(je pense|je crois|je trouve|je dis|on (m['’]a )?dit|je considère|selon moi|à mon avis|j['’]estime)\b/i,
+    essayer: "Dites ce que vous pensez, ou ce qu'on vous a dit.",
+    exemple: "« On me dit souvent que je suis curieux/se. »",
+  },
+  {
+    id: "volonte",
+    label: "« je veux que » / « il faut que » (+ subjonctif)",
+    test: /\b(je veux que|il faut que|j['’]aimerais que|je souhaite que|il faudrait que)\b/i,
+    essayer: "Ajoutez une phrase avec « je veux que… » ou « il faut que… ».",
+    exemple: "« Je veux que ce podcast me fasse progresser à l'oral. »",
+  },
+  {
+    id: "emotion",
+    label: "Subjonctif de l'émotion / du doute",
+    test: /\b(je suis (content|contente|heureux|heureuse|ravi|ravie|triste|surpris|surprise|fier|fière)[^.?!]*que|j['’]ai peur que|je doute que|bien que|il est possible que|je crains que)\b/i,
+    essayer: "Exprimez une émotion ou un doute avec le subjonctif.",
+    exemple: "« Je suis ravi.e que ce cours soit en français. »",
+  },
+  {
+    id: "qualites",
+    // Spécial : « Vérifier » compte les qualités choisies (cible : 4 à 6).
+    label: "4 à 6 qualités professionnelles",
+    essayer: "Choisissez entre 4 et 6 qualités dans « Construire ».",
+    exemple: "curieux.se · rigoureux.se · créatif.ve …",
+  },
+];
+
+// PRON — mots difficiles. Affichés dans « Prononcer » s'ils apparaissent
+// dans le script (sinon, on montre la sélection par défaut ci-dessous).
+export type PronEntry = { mot: string; decoupe: string; astuce: string };
+
+export const PRON: PronEntry[] = [
+  { mot: "journalisme", decoupe: "jour·na·lisme", astuce: "« j » doux comme dans « jour » ; le « e » final est muet." },
+  { mot: "curieux", decoupe: "cu·ri·eux", astuce: "« eux » = son [ø], bouche bien arrondie." },
+  { mot: "rigoureux", decoupe: "ri·gou·reux", astuce: "« gou » comme « goût » ; « eux » arrondi." },
+  { mot: "créatif", decoupe: "cré·a·tif", astuce: "Détachez « cré-a » ; le « f » se prononce." },
+  { mot: "passionne", decoupe: "pa·ssio·nne", astuce: "« ssio » = [sjɔ] ; insistez sur la syllabe « ssio »." },
+  { mot: "déterminé", decoupe: "dé·ter·mi·né", astuce: "Trois « é » fermés : dé-…-né. Gardez-les nets." },
+  { mot: "rigueur", decoupe: "ri·gueur", astuce: "« gueur » = [gœʁ], le « r » final racle légèrement." },
+  { mot: "ambitieux", decoupe: "am·bi·tieux", astuce: "« tieux » = [sjø] ; « am » est nasal." },
+  { mot: "analyse", decoupe: "a·na·lyse", astuce: "Le « y » se dit [i] ; le « s » entre voyelles = [z]." },
+  { mot: "polyvalent", decoupe: "po·ly·va·lent", astuce: "« en » nasal à la fin ; ne prononcez pas le « t »." },
+  { mot: "français", decoupe: "fran·çais", astuce: "« ç » = [s] ; « ais » final = [ɛ], le « s » est muet." },
+];
+
+// Sélection par défaut si aucun mot de PRON n'est trouvé dans le script.
+export const PRON_DEFAUT = ["journalisme", "curieux", "français"];
+
+// Invites de métacognition après chaque enregistrement (étape « Prononcer »).
+export const METACOG: string[] = [
+  "Est-ce que j'ai parlé trop vite ?",
+  "Quels mots étaient difficiles à dire ?",
+  "Est-ce que mes pauses tombaient au bon endroit ?",
+  "Qu'est-ce que je veux améliorer à la prochaine prise ?",
+];
+
+// CHECKS — auto-vérification finale (« Prêt.e »), inspirée de la grille.
+export const CHECKS: { id: string; label: string }[] = [
+  { id: "organisation", label: "Mon épisode a une intro, un contenu et une conclusion clairs." },
+  { id: "oral", label: "Mes phrases sont variées et je peux les dire d'un débit naturel." },
+  { id: "grammaire", label: "J'ai intégré des structures de l'Unité 1 (question, opinion, subjonctif)." },
+  { id: "vocabulaire", label: "J'ai utilisé 4 à 6 qualités professionnelles." },
+  { id: "contenu", label: "Mon épisode est personnel, créatif — il me ressemble." },
+];
+
+// WPS — mots par seconde. Débit de lecture moyen en français ≈ 2,3.
+// Augmentez si vos étudiant.e.s lisent vite, diminuez s'ils lisent lentement.
+export const WPS = 2.3;
+
+// Cibles de durée par section (secondes) — pour « Découper ».
+export const CIBLES: Record<string, [number, number]> = {
+  intro: [10, 15],
+  contenu: [40, 50],
+  conclusion: [10, 15],
+};

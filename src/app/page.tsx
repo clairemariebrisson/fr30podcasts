@@ -1,10 +1,10 @@
 import Nav from "@/components/Nav";
-import SpeakingPractice from "@/components/SpeakingPractice";
-import ScriptBuilder from "@/components/ScriptBuilder";
-import { PracticeProvider } from "@/components/practice-context";
+import Studio from "@/components/studio/Studio";
+import { Gloss } from "@/components/Gloss";
 import {
   meta,
   objectif,
+  canDo,
   structuresUnite,
   recording,
   grilleCriteres,
@@ -45,10 +45,7 @@ export default function Home() {
             <p className="mt-2 text-xl italic text-muted">{meta.subtitle}</p>
             <div className="mt-6 flex flex-wrap gap-3 text-sm">
               <span className="rounded-full bg-surface px-4 py-1.5 font-medium shadow-sm ring-1 ring-border">
-                📅 À rendre le {meta.dueDate}
-              </span>
-              <span className="rounded-full bg-surface px-4 py-1.5 font-medium shadow-sm ring-1 ring-border">
-                🎙️ {meta.length}
+                {meta.length}
               </span>
             </div>
           </div>
@@ -58,9 +55,44 @@ export default function Home() {
           {/* Objectif */}
           <section id="objectif">
             <SectionHeading num={1}>Objectif du Podcast 0</SectionHeading>
-            <p className="max-w-3xl text-lg leading-relaxed text-foreground/85">
+            <Gloss
+              en="Podcast 0 is your first episode: a 1–2 minute personal introduction. You introduce who you are, what excites you, and why this course interests you."
+              className="max-w-3xl text-lg leading-relaxed text-foreground/85"
+            >
               {objectif.intro}
-            </p>
+            </Gloss>
+
+            {/* Énoncés « Je peux… » — objectifs de langue */}
+            <div className="mt-8 rounded-xl border border-primary/30 bg-primary-soft/40 p-6">
+              <Gloss
+                as="h3"
+                en="What this podcast will enable you to do"
+                className="text-lg font-semibold text-primary"
+              >
+                Ce que ce podcast vous permet de faire
+              </Gloss>
+              <ul className="mt-4 space-y-3">
+                {canDo.map((c) => (
+                  <li key={c.fr} className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                    />
+                    <div>
+                      <Gloss
+                        en={c.en}
+                        className="leading-relaxed text-foreground"
+                      >
+                        {c.fr}
+                      </Gloss>
+                      <p className="mt-0.5 text-sm text-muted">
+                        Structure : {c.structure}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <h3 className="mb-4 mt-8 text-lg font-semibold">
               Structure de l’épisode
@@ -102,36 +134,23 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Qualités + Script share chosen-vocabulary state */}
-          <PracticeProvider>
-          {/* Qualités */}
-          <section id="qualites">
-            <SectionHeading num={2}>Pratique orale : décrivez-vous</SectionHeading>
-            <p className="mb-6 max-w-3xl text-foreground/85">
-              Choisissez le vocabulaire que vous voulez travailler, puis
-              entraînez-vous à l’oral : pour chaque{" "}
-              <em>amorce de phrase</em>, complétez la phrase à voix haute en
-              intégrant vos termes. Enregistrez-vous et réécoutez-vous pour
-              préparer votre podcast.
-            </p>
-            <SpeakingPractice />
+          {/* Studio — le cœur du site : six étapes guidées */}
+          <section id="studio">
+            <SectionHeading num={2}>Studio — préparez votre épisode</SectionHeading>
+            <Gloss
+              en="Six guided steps, from idea to recording. Build your script, notice your structures, make your sentences speakable, set the pacing, rehearse your pronunciation — then record."
+              className="mb-8 max-w-3xl text-foreground/85"
+            >
+              Six étapes guidées, de l’idée à la prise. Construisez votre script,
+              repérez vos structures, rendez vos phrases parlables, réglez le
+              rythme, entraînez votre prononciation — puis enregistrez.
+            </Gloss>
+            <Studio />
           </section>
-
-          {/* Script */}
-          <section id="script">
-            <SectionHeading num={3}>Construisez votre script</SectionHeading>
-            <p className="mb-6 max-w-3xl text-foreground/85">
-              Un podcast réussi a une structure claire. Servez-vous de ce plan
-              avant d’enregistrer — votre vocabulaire de la partie 2 vous attend
-              ci-dessous.
-            </p>
-            <ScriptBuilder />
-          </section>
-          </PracticeProvider>
 
           {/* Enregistrement */}
           <section id="enregistrement">
-            <SectionHeading num={4}>
+            <SectionHeading num={3}>
               Recording Podcasts: An Introduction
             </SectionHeading>
             <p className="max-w-3xl leading-relaxed text-foreground/85">
@@ -161,7 +180,7 @@ export default function Home() {
 
           {/* Évaluation */}
           <section id="evaluation">
-            <SectionHeading num={5}>
+            <SectionHeading num={4}>
               Grille d’évaluation du Podcast 0
             </SectionHeading>
             <div className="overflow-x-auto rounded-xl border border-border shadow-sm">
