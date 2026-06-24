@@ -15,6 +15,7 @@ type Saved = {
   selected: string[];
   script: Record<ScriptKey, string>;
   checks: Record<string, boolean>;
+  notes: Record<string, string>;
 };
 
 type StudioState = Saved & {
@@ -23,6 +24,7 @@ type StudioState = Saved & {
   toggle: (terme: string) => void;
   setSection: (key: ScriptKey, value: string) => void;
   setCheck: (id: string, value: boolean) => void;
+  setNote: (id: string, value: string) => void;
   fullScript: string;
   loaded: boolean;
 };
@@ -33,13 +35,14 @@ const EMPTY: Saved = {
   selected: [],
   script: { intro: "", contenu: "", conclusion: "" },
   checks: {},
+  notes: {},
 };
 
 const StudioContext = createContext<StudioState | null>(null);
 
 export function StudioProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<Saved>(EMPTY);
-  const [step, setStep] = useState<StepId>("construire");
+  const [step, setStep] = useState<StepId>("observer");
   const [loaded, setLoaded] = useState(false);
 
   // Charger depuis le navigateur au montage (évite tout décalage d'hydratation).
@@ -55,6 +58,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
           selected: parsed.selected ?? [],
           script: { ...EMPTY.script, ...(parsed.script ?? {}) },
           checks: parsed.checks ?? {},
+          notes: parsed.notes ?? {},
         });
       }
     } catch {
@@ -95,6 +99,10 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, checks: { ...d.checks, [id]: value } }));
   }
 
+  function setNote(id: string, value: string) {
+    setData((d) => ({ ...d, notes: { ...d.notes, [id]: value } }));
+  }
+
   const fullScript = [
     data.script.intro,
     data.script.contenu,
@@ -112,6 +120,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         toggle,
         setSection,
         setCheck,
+        setNote,
         fullScript,
         loaded,
       }}

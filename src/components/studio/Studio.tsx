@@ -3,6 +3,7 @@
 import { STUDIO_STEPS, type StepId } from "@/data/podcast0";
 import { StudioProvider, useStudio } from "@/components/studio-context";
 import { Gloss } from "@/components/Gloss";
+import StepObserver from "./StepObserver";
 import StepConstruire from "./StepConstruire";
 import StepVerifier from "./StepVerifier";
 import StepOraliser from "./StepOraliser";
@@ -11,6 +12,7 @@ import StepPrononcer from "./StepPrononcer";
 import StepPret from "./StepPret";
 
 const PANELS: Record<StepId, () => React.ReactElement> = {
+  observer: StepObserver,
   construire: StepConstruire,
   verifier: StepVerifier,
   oraliser: StepOraliser,
@@ -28,7 +30,7 @@ function StudioInner() {
   return (
     <div>
       {/* Stepper */}
-      <ol className="mb-8 grid grid-cols-3 gap-2 sm:grid-cols-6">
+      <ol className="mb-8 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-7">
         {STUDIO_STEPS.map((s, idx) => {
           const state =
             idx === i ? "current" : idx < i ? "done" : "todo";
@@ -78,6 +80,16 @@ function StudioInner() {
         <Gloss as="p" en={current.sous_en} className="mt-1 text-muted">
           {current.sous}
         </Gloss>
+        <div className="mt-3 rounded-lg border-l-4 border-primary bg-primary-soft/40 px-4 py-2.5">
+          <Gloss
+            en={`Goal: ${current.objectif_en}`}
+            className="text-sm text-foreground/85"
+            glossClassName="mt-0.5 block italic text-muted"
+          >
+            <span className="font-semibold text-primary">Objectif :</span>{" "}
+            {current.objectif}
+          </Gloss>
+        </div>
       </div>
 
       {/* Contenu de l'étape */}

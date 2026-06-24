@@ -232,17 +232,135 @@ export const grilleNiveaux = [
  *    WPS       → débit de lecture (mots/seconde) pour estimer les durées
  * ========================================================================== */
 
-// Les six étapes du studio, dans l'ordre. `sous_en` = glose anglaise (mode EN).
+// Les six étapes du studio, dans l'ordre.
+// `sous_en` / `objectif_en` = gloses anglaises (mode EN).
+// `objectif` = but explicite de l'étape (engagement comportemental : un cap clair).
 export const STUDIO_STEPS = [
-  { id: "construire", titre: "Construire", sous: "Bâtir votre script", sous_en: "Build your script" },
-  { id: "verifier", titre: "Vérifier", sous: "Qu'est-ce que tu remarques ?", sous_en: "What do you notice?" },
-  { id: "oraliser", titre: "Oraliser", sous: "Rendre vos phrases parlables", sous_en: "Make your sentences speakable" },
-  { id: "decouper", titre: "Découper", sous: "Pauses et rythme", sous_en: "Pauses and pacing" },
-  { id: "prononcer", titre: "Prononcer", sous: "Mots difficiles et répétition", sous_en: "Tricky words and rehearsal" },
-  { id: "pret", titre: "Prêt.e", sous: "Auto-vérification avant d'enregistrer", sous_en: "Self-check before recording" },
+  {
+    id: "observer",
+    titre: "Observer",
+    sous: "Écouter un modèle avant de créer",
+    sous_en: "Notice a model before you create",
+    objectif: "Remarquer ce qui fait une bonne introduction de podcast avant d'écrire la vôtre.",
+    objectif_en: "Notice what makes a good podcast intro before writing your own.",
+  },
+  {
+    id: "construire",
+    titre: "Construire",
+    sous: "Bâtir votre script",
+    sous_en: "Build your script",
+    objectif: "Bâtir un script clair (intro, contenu, conclusion) avec 4 à 6 qualités.",
+    objectif_en: "Build a clear script (intro, body, conclusion) with 4–6 qualities.",
+  },
+  {
+    id: "verifier",
+    titre: "Vérifier",
+    sous: "Qu'est-ce que tu remarques ?",
+    sous_en: "What do you notice?",
+    objectif: "Remarquer quelles structures de l'Unité 1 sont déjà dans votre script.",
+    objectif_en: "Notice which Unit 1 structures are already in your script.",
+  },
+  {
+    id: "oraliser",
+    titre: "Oraliser",
+    sous: "Rendre vos phrases parlables",
+    sous_en: "Make your sentences speakable",
+    objectif: "Repérer les phrases qui « sonnent écrit » et les rendre parlables.",
+    objectif_en: "Spot sentences that 'sound written' and make them speakable.",
+  },
+  {
+    id: "decouper",
+    titre: "Découper",
+    sous: "Pauses et rythme",
+    sous_en: "Pauses and pacing",
+    objectif: "Régler le rythme : pauses, longueur des phrases et durée de chaque section.",
+    objectif_en: "Set your pacing: pauses, sentence length, and each section's timing.",
+  },
+  {
+    id: "prononcer",
+    titre: "Prononcer",
+    sous: "S'entraîner et se réécouter",
+    sous_en: "Rehearse and listen back",
+    objectif: "Vous entraîner à voix haute, vous réécouter, et remarquer ce que vous pouvez améliorer.",
+    objectif_en: "Rehearse aloud, listen back to yourself, and notice what to improve.",
+  },
+  {
+    id: "pret",
+    titre: "Prêt.e",
+    sous: "Auto-vérification avant d'enregistrer",
+    sous_en: "Self-check before recording",
+    objectif: "Une dernière auto-vérification avant d'enregistrer.",
+    objectif_en: "One last self-check before recording.",
+  },
 ] as const;
 
 export type StepId = (typeof STUDIO_STEPS)[number]["id"];
+
+// MODÈLE — exemple d'introduction à observer avant de créer (étape « Observer »).
+// Input avant output : on remarque le genre (accroche, structure, ton) d'abord.
+export const MODELE = {
+  // L'introduction-modèle, telle qu'on l'entendrait.
+  texte:
+    "Qui aurait pensé que moi, passionnée de cinéma depuis l'enfance, je me retrouverais à Harvard à étudier le journalisme en français ? Bonjour et bienvenue ! Je m'appelle Léa, et je suis étudiante en deuxième année. On me dit souvent que je suis curieuse et déterminée — deux qualités qui me définissent bien. Je veux que ce podcast soit un espace pour explorer des histoires qui comptent. J'avoue que je doute parfois de mon français, mais je suis ravie que ce cours me pousse à parler. Alors, installez-vous confortablement : ça commence maintenant.",
+  // Le modèle découpé par fonction (la « charpente » d'une intro de podcast).
+  segments: [
+    {
+      partie: "Accroche",
+      partie_en: "Hook",
+      fonction: "capter l'auditeur dès la première phrase",
+      fonction_en: "grab the listener from the first line",
+      texte: "Qui aurait pensé que moi… je me retrouverais à étudier le journalisme en français ?",
+    },
+    {
+      partie: "Qui",
+      partie_en: "Who",
+      fonction: "se présenter brièvement",
+      fonction_en: "introduce yourself briefly",
+      texte: "Bonjour et bienvenue ! Je m'appelle Léa, étudiante en deuxième année.",
+    },
+    {
+      partie: "Personnalité",
+      partie_en: "Personality",
+      fonction: "montrer qui vous êtes (opinion, déclaratif)",
+      fonction_en: "show who you are (opinion, reported speech)",
+      texte: "On me dit souvent que je suis curieuse et déterminée.",
+    },
+    {
+      partie: "Intention",
+      partie_en: "Intention",
+      fonction: "dire ce que vous voulez (je veux que + subjonctif)",
+      fonction_en: "say what you want (je veux que + subjunctive)",
+      texte: "Je veux que ce podcast soit un espace pour explorer des histoires qui comptent.",
+    },
+    {
+      partie: "Nuance",
+      partie_en: "Nuance",
+      fonction: "exprimer une émotion ou un doute (subjonctif)",
+      fonction_en: "express an emotion or doubt (subjunctive)",
+      texte: "Je doute parfois de mon français, mais je suis ravie que ce cours me pousse à parler.",
+    },
+    {
+      partie: "Clôture",
+      partie_en: "Close",
+      fonction: "terminer en parlant à l'auditeur",
+      fonction_en: "end by speaking to the listener",
+      texte: "Alors, installez-vous confortablement : ça commence maintenant.",
+    },
+  ],
+  // Ce qu'on veut faire remarquer (conventions du genre « podcast »).
+  remarquer: [
+    { fr: "Ça commence par une question — pas par « Bonjour, je m'appelle… ».", en: "It opens with a question — not with 'Hi, my name is…'." },
+    { fr: "La personne parle à l'auditeur (« installez-vous »), comme une conversation.", en: "The speaker talks to the listener ('settle in'), like a conversation." },
+    { fr: "Les phrases sont courtes et faciles à dire à voix haute.", en: "Sentences are short and easy to say aloud." },
+    { fr: "On entend une vraie personnalité, pas une liste de faits.", en: "You hear a real personality, not a list of facts." },
+  ],
+};
+
+// Public visé — pour qui vous faites ce podcast (cadre la tâche : audience réelle).
+export const PUBLIC = {
+  fr: "Vous vous présentez à vos camarades de cours et aux auditeur.rice.s du podcast français de Harvard. Qu'est-ce que vous voulez qu'iels retiennent de vous ?",
+  en: "You're introducing yourself to your classmates and to listeners of Harvard's French podcast. What do you want them to remember about you?",
+};
 
 // HOOKS — amorces d'accroche cliquables (insérées dans l'intro).
 export const HOOKS: string[] = [
@@ -260,6 +378,8 @@ export const HOOKS: string[] = [
 export type RxRule = {
   id: string;
   label: string;
+  fonction: string; // ce que la structure FAIT dans une intro (fonction communicative)
+  fonction_en: string;
   test?: RegExp;
   essayer: string;
   exemple: string;
@@ -269,36 +389,46 @@ export const RX: RxRule[] = [
   {
     id: "interro",
     label: "Une question d'accroche (formes interrogatives)",
+    fonction: "capter l'auditeur",
+    fonction_en: "grab the listener",
     test: /\?|\bqui aurait\b|\best-ce que\b|\bqu['’]est-ce\b|\bpourquoi\b|\bcomment\b/i,
-    essayer: "Ajoutez une vraie question pour accrocher l'auditeur.",
+    essayer: "Pour accrocher l'auditeur dès le début, essayez une vraie question.",
     exemple: "« Qui aurait pensé que moi, … ? »",
   },
   {
     id: "opinion",
     label: "Verbes d'opinion / déclaratifs",
+    fonction: "affirmer qui vous êtes",
+    fonction_en: "establish who you are",
     test: /\b(je pense|je crois|je trouve|je dis|on (m['’]a )?dit|je considère|selon moi|à mon avis|j['’]estime)\b/i,
-    essayer: "Dites ce que vous pensez, ou ce qu'on vous a dit.",
+    essayer: "Pour vous présenter avec assurance, dites ce que vous pensez ou ce qu'on vous dit.",
     exemple: "« On me dit souvent que je suis curieux/se. »",
   },
   {
     id: "volonte",
     label: "« je veux que » / « il faut que » (+ subjonctif)",
+    fonction: "annoncer vos intentions",
+    fonction_en: "state your intentions",
     test: /\b(je veux que|il faut que|j['’]aimerais que|je souhaite que|il faudrait que)\b/i,
-    essayer: "Ajoutez une phrase avec « je veux que… » ou « il faut que… ».",
+    essayer: "Pour dire ce que vous voulez accomplir, essayez « je veux que… » ou « il faut que… ».",
     exemple: "« Je veux que ce podcast me fasse progresser à l'oral. »",
   },
   {
     id: "emotion",
     label: "Subjonctif de l'émotion / du doute",
+    fonction: "nuancer, montrer votre personnalité",
+    fonction_en: "add nuance, show personality",
     test: /\b(je suis (content|contente|heureux|heureuse|ravi|ravie|triste|surpris|surprise|fier|fière)[^.?!]*que|j['’]ai peur que|je doute que|bien que|il est possible que|je crains que)\b/i,
-    essayer: "Exprimez une émotion ou un doute avec le subjonctif.",
+    essayer: "Pour donner de la nuance, exprimez une émotion ou un doute au subjonctif.",
     exemple: "« Je suis ravi.e que ce cours soit en français. »",
   },
   {
     id: "qualites",
     // Spécial : « Vérifier » compte les qualités choisies (cible : 4 à 6).
     label: "4 à 6 qualités professionnelles",
-    essayer: "Choisissez entre 4 et 6 qualités dans « Construire ».",
+    fonction: "vous décrire précisément",
+    fonction_en: "describe yourself precisely",
+    essayer: "Pour vous décrire précisément, choisissez entre 4 et 6 qualités dans « Construire ».",
     exemple: "curieux.se · rigoureux.se · créatif.ve …",
   },
 ];
@@ -324,21 +454,50 @@ export const PRON: PronEntry[] = [
 // Sélection par défaut si aucun mot de PRON n'est trouvé dans le script.
 export const PRON_DEFAUT = ["journalisme", "curieux", "français"];
 
-// Invites de métacognition après chaque enregistrement (étape « Prononcer »).
-export const METACOG: string[] = [
-  "Est-ce que j'ai parlé trop vite ?",
-  "Quels mots étaient difficiles à dire ?",
-  "Est-ce que mes pauses tombaient au bon endroit ?",
-  "Qu'est-ce que je veux améliorer à la prochaine prise ?",
+// En vous réécoutant — sur quoi porter l'attention (étape « Prononcer »).
+export const FOCUS_ECOUTE: { fr: string; en: string }[] = [
+  { fr: "Votre débit : ni trop vite, ni trop lent ?", en: "Your pace: not too fast, not too slow?" },
+  { fr: "Vos pauses : tombent-elles aux bons endroits ?", en: "Your pauses: do they fall in the right places?" },
+  { fr: "Les mots difficiles : sont-ils clairs ?", en: "The tricky words: are they clear?" },
+  { fr: "Votre intonation : est-elle vivante ?", en: "Your intonation: is it lively?" },
 ];
 
-// CHECKS — auto-vérification finale (« Prêt.e »), inspirée de la grille.
-export const CHECKS: { id: string; label: string }[] = [
-  { id: "organisation", label: "Mon épisode a une intro, un contenu et une conclusion clairs." },
-  { id: "oral", label: "Mes phrases sont variées et je peux les dire d'un débit naturel." },
-  { id: "grammaire", label: "J'ai intégré des structures de l'Unité 1 (question, opinion, subjonctif)." },
-  { id: "vocabulaire", label: "J'ai utilisé 4 à 6 qualités professionnelles." },
-  { id: "contenu", label: "Mon épisode est personnel, créatif — il me ressemble." },
+// Amorces de réflexion (métacognition) — l'étudiant.e complète après écoute.
+export const REFLEXION: string[] = [
+  "Je remarque que…",
+  "C'était fluide / saccadé parce que…",
+  "Le mot le plus difficile était…",
+  "La prochaine fois, je vais…",
+];
+
+// CHECKS — auto-vérification finale (« Prêt.e »). Commence par la communication
+// (« est-ce que je me fais comprendre ? ») avant la forme — fluidité avant perfection.
+export const CHECKS: { id: string; label: string; en: string }[] = [
+  {
+    id: "communication",
+    label: "Un.e auditeur.rice comprend qui je suis après 1 à 2 minutes.",
+    en: "A listener understands who I am after 1–2 minutes.",
+  },
+  {
+    id: "contenu",
+    label: "Mon épisode est personnel et me ressemble.",
+    en: "My episode is personal and sounds like me.",
+  },
+  {
+    id: "oral",
+    label: "Mes phrases se disent d'un débit naturel — ça sonne parlé, pas lu.",
+    en: "My sentences flow at a natural pace — it sounds spoken, not read.",
+  },
+  {
+    id: "grammaire",
+    label: "J'utilise des structures de l'Unité 1 pour accrocher, affirmer et nuancer.",
+    en: "I use Unit 1 structures to hook, assert, and add nuance.",
+  },
+  {
+    id: "vocabulaire",
+    label: "J'ai utilisé 4 à 6 qualités professionnelles.",
+    en: "I used 4–6 professional qualities.",
+  },
 ];
 
 // WPS — mots par seconde. Débit de lecture moyen en français ≈ 2,3.

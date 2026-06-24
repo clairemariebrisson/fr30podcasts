@@ -43,7 +43,14 @@ export default function StepPret() {
                 >
                   ✓
                 </span>
-                <span className="text-foreground">{c.label}</span>
+                <Gloss
+                  as="span"
+                  en={c.en}
+                  className="text-foreground"
+                  glossClassName="mt-0.5 block text-sm italic text-muted"
+                >
+                  {c.label}
+                </Gloss>
               </button>
             </li>
           );
@@ -68,11 +75,12 @@ export default function StepPret() {
               Vous êtes prêt.e à enregistrer.
             </Gloss>
             <Gloss
-              en="Find a quiet spot, take a breath, and open Voice Memos. Your script is waiting. Good take!"
+              en="Find a quiet spot and record on your phone (Voice Memos / Recorder) or your computer. Then upload your file to Canvas. Good take!"
               className="mt-2 text-foreground/80"
             >
-              Trouvez un endroit calme, respirez, et lancez Voice Memos. Votre
-              script vous attend. Bonne prise !
+              Trouvez un endroit calme et enregistrez sur votre téléphone
+              (Dictaphone / Voice Memos) ou votre ordinateur. Déposez ensuite
+              votre fichier sur Canvas. Bonne prise !
             </Gloss>
           </>
         ) : (
