@@ -3,6 +3,7 @@
 import { useStudio } from "@/components/studio-context";
 import { splitSentences, analyzeOral } from "@/lib/studio";
 import { Gloss } from "@/components/Gloss";
+import { PeerTask } from "@/components/studio/PeerTask";
 
 export default function StepOraliser() {
   const { fullScript } = useStudio();
@@ -66,6 +67,11 @@ export default function StepOraliser() {
           ))}
         </ul>
       )}
+
+      <PeerTask en="Read a sentence to a partner twice — the 'written' version, then your spoken version. Which sounds more natural?">
+        Lisez une phrase à un.e camarade, deux fois : la version « écrite », puis
+        votre version orale. Laquelle sonne plus naturelle ?
+      </PeerTask>
     </div>
   );
 }

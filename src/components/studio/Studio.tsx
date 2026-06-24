@@ -78,6 +78,16 @@ function StudioInner() {
         <Gloss as="p" en={current.sous_en} className="mt-1 text-muted">
           {current.sous}
         </Gloss>
+        <div className="mt-3 rounded-lg border-l-4 border-primary bg-primary-soft/40 px-4 py-2.5">
+          <Gloss
+            en={`Goal: ${current.objectif_en}`}
+            className="text-sm text-foreground/85"
+            glossClassName="mt-0.5 block italic text-muted"
+          >
+            <span className="font-semibold text-primary">Objectif :</span>{" "}
+            {current.objectif}
+          </Gloss>
+        </div>
       </div>
 
       {/* Contenu de l'étape */}

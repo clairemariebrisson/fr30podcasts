@@ -232,14 +232,58 @@ export const grilleNiveaux = [
  *    WPS       → débit de lecture (mots/seconde) pour estimer les durées
  * ========================================================================== */
 
-// Les six étapes du studio, dans l'ordre. `sous_en` = glose anglaise (mode EN).
+// Les six étapes du studio, dans l'ordre.
+// `sous_en` / `objectif_en` = gloses anglaises (mode EN).
+// `objectif` = but explicite de l'étape (engagement comportemental : un cap clair).
 export const STUDIO_STEPS = [
-  { id: "construire", titre: "Construire", sous: "Bâtir votre script", sous_en: "Build your script" },
-  { id: "verifier", titre: "Vérifier", sous: "Qu'est-ce que tu remarques ?", sous_en: "What do you notice?" },
-  { id: "oraliser", titre: "Oraliser", sous: "Rendre vos phrases parlables", sous_en: "Make your sentences speakable" },
-  { id: "decouper", titre: "Découper", sous: "Pauses et rythme", sous_en: "Pauses and pacing" },
-  { id: "prononcer", titre: "Prononcer", sous: "Mots difficiles et répétition", sous_en: "Tricky words and rehearsal" },
-  { id: "pret", titre: "Prêt.e", sous: "Auto-vérification avant d'enregistrer", sous_en: "Self-check before recording" },
+  {
+    id: "construire",
+    titre: "Construire",
+    sous: "Bâtir votre script",
+    sous_en: "Build your script",
+    objectif: "Bâtir un script clair (intro, contenu, conclusion) avec 4 à 6 qualités.",
+    objectif_en: "Build a clear script (intro, body, conclusion) with 4–6 qualities.",
+  },
+  {
+    id: "verifier",
+    titre: "Vérifier",
+    sous: "Qu'est-ce que tu remarques ?",
+    sous_en: "What do you notice?",
+    objectif: "Remarquer quelles structures de l'Unité 1 sont déjà dans votre script.",
+    objectif_en: "Notice which Unit 1 structures are already in your script.",
+  },
+  {
+    id: "oraliser",
+    titre: "Oraliser",
+    sous: "Rendre vos phrases parlables",
+    sous_en: "Make your sentences speakable",
+    objectif: "Repérer les phrases qui « sonnent écrit » et les rendre parlables.",
+    objectif_en: "Spot sentences that 'sound written' and make them speakable.",
+  },
+  {
+    id: "decouper",
+    titre: "Découper",
+    sous: "Pauses et rythme",
+    sous_en: "Pauses and pacing",
+    objectif: "Régler le rythme : pauses, longueur des phrases et durée de chaque section.",
+    objectif_en: "Set your pacing: pauses, sentence length, and each section's timing.",
+  },
+  {
+    id: "prononcer",
+    titre: "Prononcer",
+    sous: "S'entraîner et se réécouter",
+    sous_en: "Rehearse and listen back",
+    objectif: "Vous entraîner à voix haute, vous réécouter, et remarquer ce que vous pouvez améliorer.",
+    objectif_en: "Rehearse aloud, listen back to yourself, and notice what to improve.",
+  },
+  {
+    id: "pret",
+    titre: "Prêt.e",
+    sous: "Auto-vérification avant d'enregistrer",
+    sous_en: "Self-check before recording",
+    objectif: "Une dernière auto-vérification avant d'enregistrer.",
+    objectif_en: "One last self-check before recording.",
+  },
 ] as const;
 
 export type StepId = (typeof STUDIO_STEPS)[number]["id"];
@@ -324,12 +368,20 @@ export const PRON: PronEntry[] = [
 // Sélection par défaut si aucun mot de PRON n'est trouvé dans le script.
 export const PRON_DEFAUT = ["journalisme", "curieux", "français"];
 
-// Invites de métacognition après chaque enregistrement (étape « Prononcer »).
-export const METACOG: string[] = [
-  "Est-ce que j'ai parlé trop vite ?",
-  "Quels mots étaient difficiles à dire ?",
-  "Est-ce que mes pauses tombaient au bon endroit ?",
-  "Qu'est-ce que je veux améliorer à la prochaine prise ?",
+// En vous réécoutant — sur quoi porter l'attention (étape « Prononcer »).
+export const FOCUS_ECOUTE: { fr: string; en: string }[] = [
+  { fr: "Votre débit : ni trop vite, ni trop lent ?", en: "Your pace: not too fast, not too slow?" },
+  { fr: "Vos pauses : tombent-elles aux bons endroits ?", en: "Your pauses: do they fall in the right places?" },
+  { fr: "Les mots difficiles : sont-ils clairs ?", en: "The tricky words: are they clear?" },
+  { fr: "Votre intonation : est-elle vivante ?", en: "Your intonation: is it lively?" },
+];
+
+// Amorces de réflexion (métacognition) — l'étudiant.e complète après écoute.
+export const REFLEXION: string[] = [
+  "Je remarque que…",
+  "C'était fluide / saccadé parce que…",
+  "Le mot le plus difficile était…",
+  "La prochaine fois, je vais…",
 ];
 
 // CHECKS — auto-vérification finale (« Prêt.e »), inspirée de la grille.

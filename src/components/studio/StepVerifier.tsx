@@ -3,6 +3,8 @@
 import { RX } from "@/data/podcast0";
 import { useStudio } from "@/components/studio-context";
 import { Gloss } from "@/components/Gloss";
+import { PeerTask } from "@/components/studio/PeerTask";
+import { Reflection } from "@/components/studio/Reflection";
 
 export default function StepVerifier() {
   const { fullScript, selected } = useStudio();
@@ -99,6 +101,21 @@ export default function StepVerifier() {
           </li>
         ))}
       </ul>
+
+      <Reflection
+        id="verifier-reflexion"
+        starters={[
+          "Je remarque que…",
+          "La structure que je veux ajouter, c'est…",
+          "Je vais l'ajouter dans…",
+        ]}
+        placeholder="D'après ce que tu remarques, qu'est-ce que tu veux ajouter ou renforcer ?"
+      />
+
+      <PeerTask en="Read one sentence of your script aloud to a partner. Do they hear a question, an opinion, or a subjunctive?">
+        Lisez une phrase de votre script à un.e camarade. Entend-iel une
+        question, une opinion, ou un subjonctif ?
+      </PeerTask>
     </div>
   );
 }

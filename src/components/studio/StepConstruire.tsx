@@ -3,6 +3,7 @@
 import { qualites, HOOKS, scriptSections } from "@/data/podcast0";
 import { useStudio, type ScriptKey } from "@/components/studio-context";
 import { Gloss } from "@/components/Gloss";
+import { PeerTask } from "@/components/studio/PeerTask";
 
 const SECTION_KEYS: ScriptKey[] = ["intro", "contenu", "conclusion"];
 
@@ -119,6 +120,11 @@ export default function StepConstruire() {
           );
         })}
       </div>
+
+      <PeerTask en="Read your hook aloud to a partner. Does it make them want to hear the rest?">
+        Lisez votre phrase d’accroche à un.e camarade. Lui donne-t-elle envie
+        d’écouter la suite ?
+      </PeerTask>
     </div>
   );
 }
