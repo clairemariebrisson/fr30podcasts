@@ -81,6 +81,14 @@ export default function StepVerifier() {
               </span>
               <div>
                 <p className="font-semibold text-foreground">{rule.label}</p>
+                <Gloss
+                  as="p"
+                  en={`What it does: ${rule.fonction_en}`}
+                  className="text-xs uppercase tracking-wide text-accent"
+                  glossClassName="ml-1 inline normal-case tracking-normal italic text-muted"
+                >
+                  Pour : {rule.fonction}
+                </Gloss>
                 {found ? (
                   <p className="mt-0.5 text-sm text-accent">
                     Repéré — joli ! C’est dans votre script.

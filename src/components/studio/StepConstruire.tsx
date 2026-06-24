@@ -4,6 +4,7 @@ import { qualites, HOOKS, scriptSections } from "@/data/podcast0";
 import { useStudio, type ScriptKey } from "@/components/studio-context";
 import { Gloss } from "@/components/Gloss";
 import { PeerTask } from "@/components/studio/PeerTask";
+import { Reflection } from "@/components/studio/Reflection";
 
 const SECTION_KEYS: ScriptKey[] = ["intro", "contenu", "conclusion"];
 
@@ -12,6 +13,30 @@ export default function StepConstruire() {
 
   return (
     <div className="space-y-8">
+      {/* Pré-écriture : trouver des idées avant de rédiger */}
+      <div>
+        <Gloss
+          as="p"
+          en="Before writing: jot 2–3 ideas, then keep the best. Don't polish yet."
+          className="mb-2 text-sm text-foreground/85"
+          glossClassName="mt-0.5 block italic text-muted"
+        >
+          Avant de rédiger : notez 2 à 3 idées, puis gardez la meilleure. Ne
+          peaufinez pas encore.
+        </Gloss>
+        <Reflection
+          id="construire-brainstorm"
+          starters={[
+            "Ce qui me rend unique, c’est…",
+            "Une accroche possible : …",
+            "Ce que je veux qu’on retienne de moi : …",
+          ]}
+          title="Idées"
+          titleEn="Brainstorm"
+          placeholder="Vos premières idées, en vrac…"
+        />
+      </div>
+
       {/* Banque de qualités */}
       <div>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">

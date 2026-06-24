@@ -42,7 +42,7 @@ const StudioContext = createContext<StudioState | null>(null);
 
 export function StudioProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<Saved>(EMPTY);
-  const [step, setStep] = useState<StepId>("construire");
+  const [step, setStep] = useState<StepId>("observer");
   const [loaded, setLoaded] = useState(false);
 
   // Charger depuis le navigateur au montage (évite tout décalage d'hydratation).

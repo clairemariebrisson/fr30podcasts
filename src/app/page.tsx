@@ -5,6 +5,7 @@ import {
   meta,
   objectif,
   canDo,
+  PUBLIC,
   structuresUnite,
   recording,
   grilleCriteres,
@@ -61,6 +62,21 @@ export default function Home() {
             >
               {objectif.intro}
             </Gloss>
+
+            {/* Public visé — cadre la tâche : audience réelle */}
+            <div className="mt-6 max-w-3xl rounded-xl border border-accent/30 border-l-4 border-l-accent bg-accent-soft/40 p-5">
+              <Gloss
+                as="p"
+                en="Who is it for?"
+                className="text-sm font-semibold uppercase tracking-wide text-accent"
+                glossClassName="ml-1 inline font-normal normal-case italic text-muted"
+              >
+                Pour qui ?
+              </Gloss>
+              <Gloss en={PUBLIC.en} className="mt-1 text-foreground/85">
+                {PUBLIC.fr}
+              </Gloss>
+            </div>
 
             {/* Énoncés « Je peux… » — objectifs de langue */}
             <div className="mt-8 rounded-xl border border-primary/30 bg-primary-soft/40 p-6">
@@ -138,12 +154,13 @@ export default function Home() {
           <section id="studio">
             <SectionHeading num={2}>Studio — préparez votre épisode</SectionHeading>
             <Gloss
-              en="Six guided steps, from idea to recording. Build your script, notice your structures, make your sentences speakable, set the pacing, rehearse your pronunciation — then record."
+              en="Seven guided steps, from a model to the mic. Observe an example, build your script, notice your structures, make your sentences speakable, set the pacing, rehearse — then record on your device and upload to Canvas."
               className="mb-8 max-w-3xl text-foreground/85"
             >
-              Six étapes guidées, de l’idée à la prise. Construisez votre script,
-              repérez vos structures, rendez vos phrases parlables, réglez le
-              rythme, entraînez votre prononciation — puis enregistrez.
+              Sept étapes guidées, du modèle au micro. Observez un exemple,
+              construisez votre script, repérez vos structures, rendez vos
+              phrases parlables, réglez le rythme, entraînez-vous — puis
+              enregistrez sur votre appareil et déposez sur Canvas.
             </Gloss>
             <Studio />
           </section>

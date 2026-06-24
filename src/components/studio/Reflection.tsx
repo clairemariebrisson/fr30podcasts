@@ -8,11 +8,13 @@ import { Gloss } from "@/components/Gloss";
 export function Reflection({
   id,
   starters,
+  title = "Réflexion",
   titleEn = "Reflection",
   placeholder = "Écrivez vos remarques ici…",
 }: {
   id: string;
   starters: string[];
+  title?: string;
   titleEn?: string;
   placeholder?: string;
 }) {
@@ -31,7 +33,7 @@ export function Reflection({
         className="text-xs font-semibold uppercase tracking-wide text-muted"
         glossClassName="ml-1 inline font-normal italic normal-case text-muted"
       >
-        Réflexion
+        {title}
       </Gloss>
       <div className="mt-2 flex flex-wrap gap-2">
         {starters.map((s) => (
