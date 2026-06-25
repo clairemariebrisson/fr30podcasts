@@ -2,13 +2,6 @@
 
 import { usePrefs } from "@/components/prefs-context";
 
-const links = [
-  { href: "#objectif", label: "Objectif" },
-  { href: "#studio", label: "Studio" },
-  { href: "#enregistrement", label: "Enregistrement" },
-  { href: "#evaluation", label: "Évaluation" },
-];
-
 export default function Nav() {
   const { theme, lang, toggleTheme, toggleLang } = usePrefs();
 
@@ -23,19 +16,6 @@ export default function Nav() {
             Podcast&nbsp;0
           </span>
         </a>
-
-        <ul className="hidden flex-wrap items-center gap-x-4 gap-y-1 text-sm md:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-muted transition-colors hover:text-primary"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
 
         <div className="flex items-center gap-2">
           {/* Bascule FR / EN */}

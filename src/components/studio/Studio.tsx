@@ -4,20 +4,18 @@ import { STUDIO_STEPS, type StepId } from "@/data/podcast0";
 import { StudioProvider, useStudio } from "@/components/studio-context";
 import { Gloss } from "@/components/Gloss";
 import StepObserver from "./StepObserver";
-import StepConstruire from "./StepConstruire";
+import StepReperer from "./StepReperer";
+import StepCoConstruire from "./StepCoConstruire";
 import StepVerifier from "./StepVerifier";
-import StepOraliser from "./StepOraliser";
-import StepDecouper from "./StepDecouper";
-import StepPrononcer from "./StepPrononcer";
+import StepOser from "./StepOser";
 import StepPret from "./StepPret";
 
 const PANELS: Record<StepId, () => React.ReactElement> = {
   observer: StepObserver,
-  construire: StepConstruire,
+  reperer: StepReperer,
+  construire: StepCoConstruire,
   verifier: StepVerifier,
-  oraliser: StepOraliser,
-  decouper: StepDecouper,
-  prononcer: StepPrononcer,
+  oser: StepOser,
   pret: StepPret,
 };
 
@@ -74,7 +72,15 @@ function StudioInner() {
 
       {/* En-tête de l'étape */}
       <div className="mb-6">
-        <h3 className="font-serif text-2xl text-foreground sm:text-3xl">
+        <Gloss
+          as="p"
+          en={current.phase_en}
+          className="text-xs font-semibold uppercase tracking-widest text-accent"
+          glossClassName="ml-1 inline font-normal normal-case tracking-normal italic text-muted"
+        >
+          {current.phase}
+        </Gloss>
+        <h3 className="mt-1 font-serif text-2xl text-foreground sm:text-3xl">
           {current.titre}
         </h3>
         <Gloss as="p" en={current.sous_en} className="mt-1 text-muted">

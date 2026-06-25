@@ -6,16 +6,29 @@ import { Reflection } from "@/components/studio/Reflection";
 import { PeerTask } from "@/components/studio/PeerTask";
 
 export default function StepObserver() {
+  const hasAudio = Boolean(MODELE.audio);
+
   return (
     <div className="space-y-8">
-      <Gloss
-        en="Before writing your own intro, listen to (or read) this model and notice what makes it work. A good podcast intro is a genre — it has its own moves."
-        className="max-w-3xl text-foreground/85"
-      >
-        Avant d’écrire votre propre intro, lisez ce modèle à voix haute et
-        remarquez ce qui le rend efficace. Une bonne intro de podcast, c’est un
-        genre — elle a ses codes.
-      </Gloss>
+      {hasAudio ? (
+        <Gloss
+          en="Before writing your own intro, listen to this model (and read it aloud yourself), and notice what makes it work. A good podcast intro is a genre — it has its own moves."
+          className="max-w-3xl text-foreground/85"
+        >
+          Avant d’écrire votre propre intro, écoutez ce modèle (et lisez-le à
+          voix haute), puis remarquez ce qui le rend efficace. Une bonne intro
+          de podcast, c’est un genre — elle a ses codes.
+        </Gloss>
+      ) : (
+        <Gloss
+          en="Before writing your own intro, read this model aloud and notice what makes it work. A good podcast intro is a genre — it has its own moves."
+          className="max-w-3xl text-foreground/85"
+        >
+          Avant d’écrire votre propre intro, lisez ce modèle à voix haute et
+          remarquez ce qui le rend efficace. Une bonne intro de podcast, c’est un
+          genre — elle a ses codes.
+        </Gloss>
+      )}
 
       {/* Le modèle, en entier */}
       <div className="rounded-2xl border border-primary/30 bg-primary-soft/30 p-6">
@@ -27,6 +40,21 @@ export default function StepObserver() {
         >
           Un exemple d’introduction
         </Gloss>
+
+        {hasAudio && (
+          <div className="mb-4">
+            <Gloss
+              as="p"
+              en="Listen to the model:"
+              className="mb-1 text-xs font-semibold uppercase tracking-wide text-primary"
+              glossClassName="ml-1 inline font-normal normal-case italic text-muted"
+            >
+              Écoutez le modèle :
+            </Gloss>
+            <audio controls src={MODELE.audio} className="w-full" />
+          </div>
+        )}
+
         <p className="font-serif text-lg leading-relaxed text-foreground">
           {MODELE.texte}
         </p>
