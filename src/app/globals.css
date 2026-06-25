@@ -13,7 +13,18 @@
   --primary-soft: #f3e3e8;
   --accent: #1f6f6f;          /* teal */
   --accent-soft: #e2f0ef;
+  --on-accent: #ffffff;       /* texte posé sur un fond accent */
   --muted: #756b5f;
+}
+
+/* Podcast 1 — accent marigold (différencie visuellement du Podcast 0).
+   Marigold étant clair, on choisit une teinte foncée en mode clair (lisible en
+   texte sur blanc ET avec du texte blanc par-dessus) ; `--on-accent` garantit
+   la lisibilité du texte posé sur un aplat accent. */
+.theme-marigold {
+  --accent: #9a6a05;          /* marigold foncé (AA sur blanc) */
+  --accent-soft: #f8edd3;     /* marigold pâle */
+  --on-accent: #ffffff;
 }
 
 /* En mode sombre, on redéfinit les mêmes variables : tout le site (qui
@@ -27,7 +38,16 @@
   --primary-soft: #3b2630;
   --accent: #5ec8c8;          /* teal éclairci */
   --accent-soft: #18302f;
+  --on-accent: #ffffff;
   --muted: #a99d8e;
+}
+
+/* Marigold en mode sombre : teinte claire (lisible sur fond sombre), avec un
+   texte brun très foncé posé par-dessus les aplats accent. */
+.dark .theme-marigold {
+  --accent: #e2a93d;          /* marigold clair */
+  --accent-soft: #36280f;
+  --on-accent: #2a2010;
 }
 
 @theme inline {
@@ -39,6 +59,7 @@
   --color-primary-soft: var(--primary-soft);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
   --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-serif: Georgia, "Times New Roman", serif;
