@@ -4,6 +4,7 @@ import { amorces } from "@/data/podcast0";
 import { Gloss } from "@/components/Gloss";
 import { Reflection } from "@/components/studio/Reflection";
 import { PeerTask } from "@/components/studio/PeerTask";
+import { ScriptComplet } from "@/components/studio/ScriptComplet";
 
 // Phase « Extension » (PACE) : on s'éloigne du script pour gagner en naturel.
 // Deux clips enregistrés SUR L'APPAREIL de l'étudiant.e (plus de micro intégré).
@@ -45,6 +46,12 @@ export default function StepOser() {
           </Gloss>
         </div>
       </div>
+
+      {/* Le script pour le clip 1 */}
+      <ScriptComplet
+        titleFr="Votre script — pour le clip 1"
+        titleEn="Your script — for clip 1"
+      />
 
       {/* Amorces pour le clip 2 */}
       <div>
