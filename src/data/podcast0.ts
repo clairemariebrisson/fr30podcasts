@@ -117,27 +117,160 @@ export const amorces: string[] = [
   "Ce qui m’a mené.e jusqu’ici, c’est…",
 ];
 
-export const scriptSections = [
+// BRIQUES — les « briques » du script, dans l'ordre de construction (étape
+// « Co-construire »). Chaque brique relie une FONCTION à une STRUCTURE de
+// l'Unité 1, avec un exemple du modèle et un gabarit de phrase à compléter.
+// Co-construction « clé en main » : on bâtit le script morceau par morceau.
+// `groupe: "anecdote"` regroupe les briques co-construites de l'anecdote.
+export type Brique = {
+  id: string;
+  section: "intro" | "contenu" | "conclusion";
+  groupe?: "anecdote";
+  titre: string;
+  titre_en: string;
+  fonction: string;
+  fonction_en: string;
+  structure: string;
+  structure_en: string;
+  modele: string; // exemple tiré du modèle (étape « Observer »)
+  cadre: string; // gabarit / amorce de phrase
+  aide: string;
+  aide_en: string;
+  qualites?: boolean; // affiche la banque de qualités (brique « personnalité »)
+  amorces?: boolean; // affiche des amorces d'accroche cliquables (brique « accroche »)
+};
+
+export const BRIQUES: Brique[] = [
   {
-    titre: "INTRO",
-    duree: "10 à 15 s",
-    objectif: "Votre phrase d’accroche + qui vous êtes + le thème de l’épisode.",
-    exemple:
-      "Qui aurait pensé que moi, étudiant.e passionné.e de [sujet], se retrouverait à Harvard à apprendre le journalisme francophone ?",
+    id: "accroche",
+    section: "intro",
+    titre: "Accroche",
+    titre_en: "Hook",
+    fonction: "capter l'auditeur",
+    fonction_en: "grab the listener",
+    structure: "une question (forme interrogative)",
+    structure_en: "a question (interrogative)",
+    modele: "Qui aurait pensé que moi… je me retrouverais à étudier le journalisme en français ?",
+    cadre: "Qui aurait pensé que… ?",
+    aide: "Commence par une vraie question — pas par « Bonjour, je m'appelle… ».",
+    aide_en: "Open with a real question — not with 'Hi, my name is…'.",
+    amorces: true,
   },
   {
-    titre: "CONTENU",
-    duree: "40 à 50 s",
-    objectif: "Développez votre sujet : une anecdote, un fait sur vous, pourquoi ce cours vous intéresse.",
-    exemple:
-      "Je suis quelqu’un de curieux.se et rigoureux.se - deux qualités que je veux développer ici. [Anecdote personnelle]…",
+    id: "presentation",
+    section: "intro",
+    titre: "Présentation",
+    titre_en: "Who you are",
+    fonction: "te présenter brièvement",
+    fonction_en: "introduce yourself briefly",
+    structure: "le présent",
+    structure_en: "present tense",
+    modele: "Bonjour et bienvenue ! Je m'appelle Léa, étudiante en deuxième année.",
+    cadre: "Bonjour ! Je m'appelle ___, et je suis ___.",
+    aide: "Une phrase suffit : ton nom + qui tu es.",
+    aide_en: "One sentence is enough: your name + who you are.",
   },
   {
-    titre: "CONCLUSION",
-    duree: "10 à 15 s",
-    objectif: "Résumez et terminez avec une phrase mémorable.",
-    exemple:
-      "Pour moi, apprendre le français c’est apprendre à voir le monde autrement et ça commence ici.",
+    id: "personnalite",
+    section: "intro",
+    titre: "Personnalité",
+    titre_en: "Personality",
+    fonction: "affirmer qui tu es",
+    fonction_en: "establish who you are",
+    structure: "verbe d'opinion / déclaratif (+ indicatif) + tes qualités",
+    structure_en: "opinion / reporting verb (+ indicative) + your qualities",
+    modele: "On me dit souvent que je suis curieuse et déterminée.",
+    cadre: "On me dit souvent que je suis ___ et ___.",
+    aide: "Choisis tes qualités ci-dessous, puis intègre-les dans une phrase.",
+    aide_en: "Pick your qualities below, then weave them into a sentence.",
+    qualites: true,
+  },
+  {
+    id: "anecdote-decor",
+    section: "contenu",
+    groupe: "anecdote",
+    titre: "1. Plante le décor",
+    titre_en: "1. Set the scene",
+    fonction: "situer ton anecdote",
+    fonction_en: "ground your anecdote",
+    structure: "le présent",
+    structure_en: "present tense",
+    modele: "Depuis l'enfance, je passe des heures devant des films.",
+    cadre: "___ (un moment, un lieu, une habitude).",
+    aide: "Une phrase qui plante un moment concret.",
+    aide_en: "One sentence that sets a concrete moment.",
+  },
+  {
+    id: "anecdote-rapport",
+    section: "contenu",
+    groupe: "anecdote",
+    titre: "2. Rapporte une parole ou une pensée",
+    titre_en: "2. Report a word or a thought",
+    fonction: "rapporter (fait / opinion)",
+    fonction_en: "report (fact / opinion)",
+    structure: "verbe déclaratif / d'opinion (+ indicatif)",
+    structure_en: "reporting / opinion verb (+ indicative)",
+    modele: "On m'a dit que je devais en faire mon métier.",
+    cadre: "On m'a dit que… / Je pensais que…",
+    aide: "Qu'est-ce qu'on t'a dit, ou que pensais-tu à ce moment-là ?",
+    aide_en: "What were you told, or what were you thinking?",
+  },
+  {
+    id: "anecdote-reaction",
+    section: "contenu",
+    groupe: "anecdote",
+    titre: "3. Réagis (émotion ou doute)",
+    titre_en: "3. React (emotion or doubt)",
+    fonction: "exprimer ta réaction",
+    fonction_en: "express your reaction",
+    structure: "le subjonctif de l'émotion / du doute",
+    structure_en: "subjunctive of emotion / doubt",
+    modele: "J'étais ravie que quelqu'un y croie, même si je doutais d'y arriver.",
+    cadre: "J'étais ravi.e que… / Je doutais que…",
+    aide: "Termine ton anecdote par ce que tu as ressenti.",
+    aide_en: "End your anecdote with what you felt.",
+  },
+  {
+    id: "intention",
+    section: "contenu",
+    titre: "Intention",
+    titre_en: "Intention",
+    fonction: "dire ce que tu veux accomplir",
+    fonction_en: "say what you want to achieve",
+    structure: "je veux que / il faut que (+ subjonctif)",
+    structure_en: "je veux que / il faut que (+ subjunctive)",
+    modele: "Je veux que ce podcast soit un espace pour explorer des histoires qui comptent.",
+    cadre: "Je veux que ___.",
+    aide: "Appuie sur le verbe au subjonctif : « je veux que ce podcast SOIT… ».",
+    aide_en: "Lean on the subjunctive verb: 'je veux que ce podcast SOIT…'.",
+  },
+  {
+    id: "nuance",
+    section: "contenu",
+    titre: "Nuance",
+    titre_en: "Nuance",
+    fonction: "montrer une nuance, un peu d'humilité",
+    fonction_en: "show nuance, a bit of humility",
+    structure: "le subjonctif de l'émotion / du doute",
+    structure_en: "subjunctive of emotion / doubt",
+    modele: "Je doute parfois de mon français, mais je suis ravie que ce cours me pousse à parler.",
+    cadre: "Je doute que… mais je suis ravi.e que ___.",
+    aide: "Une vraie nuance te rend plus humain.e à l'écoute.",
+    aide_en: "A genuine nuance makes you more human to listen to.",
+  },
+  {
+    id: "cloture",
+    section: "conclusion",
+    titre: "Clôture",
+    titre_en: "Close",
+    fonction: "terminer en parlant à l'auditeur",
+    fonction_en: "end by speaking to the listener",
+    structure: "adresse directe (impératif)",
+    structure_en: "direct address (imperative)",
+    modele: "Alors, installez-vous confortablement : ça commence maintenant.",
+    cadre: "Alors, ___ : ça commence !",
+    aide: "Parle directement à l'auditeur pour finir.",
+    aide_en: "Speak straight to the listener to finish.",
   },
 ];
 
@@ -226,71 +359,77 @@ export const grilleNiveaux = [
  *  Pour adapter le studio, éditez ces tables (pas de code à toucher) :
  *    QUALITES  → la banque de qualités (déjà définie plus haut : `qualites`)
  *    HOOKS     → les amorces d'accroche proposées dans « Construire »
- *    RX        → les structures de l'Unité 1 repérées dans « Vérifier »
- *    PRON      → les mots difficiles + découpage + astuce dans « Prononcer »
+ *    RX        → les structures de l'Unité 1 : repérées dans « Vérifier »,
+ *                travaillées à l'oral dans « Prononcer » (champ `diction`)
+ *    FOCUS_ECOUTE → points de delivery B2 à surveiller dans « Prononcer »
  *    CHECKS    → l'auto-vérification finale de « Prêt.e »
  *    WPS       → débit de lecture (mots/seconde) pour estimer les durées
  * ========================================================================== */
 
-// Les six étapes du studio, dans l'ordre.
-// `sous_en` / `objectif_en` = gloses anglaises (mode EN).
-// `objectif` = but explicite de l'étape (engagement comportemental : un cap clair).
+// Les six étapes du studio, organisées selon le modèle PACE
+// (Presentation, Attention, Co-construction, Extension) d'Adair-Hauck & Donato,
+// + une vérification et une mise au point finale alignée sur la grille.
+// `phase` = phase pédagogique ; `sous`/`objectif` cadrent l'étape (gloses _en).
 export const STUDIO_STEPS = [
   {
     id: "observer",
     titre: "Observer",
+    phase: "Présentation",
+    phase_en: "Presentation",
     sous: "Écouter un modèle avant de créer",
     sous_en: "Notice a model before you create",
     objectif: "Remarquer ce qui fait une bonne introduction de podcast avant d'écrire la vôtre.",
     objectif_en: "Notice what makes a good podcast intro before writing your own.",
   },
   {
+    id: "reperer",
+    titre: "Repérer la forme",
+    phase: "Attention",
+    phase_en: "Attention to form",
+    sous: "Les structures clés et leur musique",
+    sous_en: "The key structures and their music",
+    objectif: "Repérer, dans le modèle, les structures de l'Unité 1 : ce qu'elles font et comment elles sonnent.",
+    objectif_en: "Spot the Unit 1 structures in the model: what they do and how they sound.",
+  },
+  {
     id: "construire",
-    titre: "Construire",
-    sous: "Bâtir votre script",
-    sous_en: "Build your script",
-    objectif: "Bâtir un script clair (intro, contenu, conclusion) avec 4 à 6 qualités.",
-    objectif_en: "Build a clear script (intro, body, conclusion) with 4–6 qualities.",
+    titre: "Co-construire",
+    phase: "Co-construction",
+    phase_en: "Co-construction",
+    sous: "Bâtir, oraliser et rythmer votre script",
+    sous_en: "Build, smooth, and pace your script",
+    objectif: "Construire votre script, le rendre parlable et régler son rythme.",
+    objectif_en: "Build your script, make it speakable, and set its pacing.",
   },
   {
     id: "verifier",
     titre: "Vérifier",
+    phase: "Vérification",
+    phase_en: "Check",
     sous: "Qu'est-ce que tu remarques ?",
     sous_en: "What do you notice?",
-    objectif: "Remarquer quelles structures de l'Unité 1 sont déjà dans votre script.",
-    objectif_en: "Notice which Unit 1 structures are already in your script.",
+    objectif: "Vérifier que votre script emploie les structures de l'Unité 1.",
+    objectif_en: "Check that your script uses the Unit 1 structures.",
   },
   {
-    id: "oraliser",
-    titre: "Oraliser",
-    sous: "Rendre vos phrases parlables",
-    sous_en: "Make your sentences speakable",
-    objectif: "Repérer les phrases qui « sonnent écrit » et les rendre parlables.",
-    objectif_en: "Spot sentences that 'sound written' and make them speakable.",
-  },
-  {
-    id: "decouper",
-    titre: "Découper",
-    sous: "Pauses et rythme",
-    sous_en: "Pauses and pacing",
-    objectif: "Régler le rythme : pauses, longueur des phrases et durée de chaque section.",
-    objectif_en: "Set your pacing: pauses, sentence length, and each section's timing.",
-  },
-  {
-    id: "prononcer",
-    titre: "Prononcer",
-    sous: "S'entraîner et se réécouter",
-    sous_en: "Rehearse and listen back",
-    objectif: "Vous entraîner à voix haute, vous réécouter, et remarquer ce que vous pouvez améliorer.",
-    objectif_en: "Rehearse aloud, listen back to yourself, and notice what to improve.",
+    id: "oser",
+    titre: "Oser",
+    phase: "Extension",
+    phase_en: "Extension",
+    sous: "Du script à l'authentique",
+    sous_en: "From script to authentic",
+    objectif: "Vous éloigner peu à peu du script pour gagner en naturel et en spontanéité.",
+    objectif_en: "Step away from the script to gain naturalness and spontaneity.",
   },
   {
     id: "pret",
-    titre: "Prêt.e",
-    sous: "Auto-vérification avant d'enregistrer",
-    sous_en: "Self-check before recording",
-    objectif: "Une dernière auto-vérification avant d'enregistrer.",
-    objectif_en: "One last self-check before recording.",
+    titre: "Avant de soumettre",
+    phase: "Production",
+    phase_en: "Production",
+    sous: "Viser votre meilleur, selon la grille",
+    sous_en: "Aim for your best, by the rubric",
+    objectif: "Cibler ce qui rendra votre épisode meilleur, critère par critère, avant d'enregistrer.",
+    objectif_en: "Target what will make your episode better, criterion by criterion, before recording.",
   },
 ] as const;
 
@@ -299,6 +438,10 @@ export type StepId = (typeof STUDIO_STEPS)[number]["id"];
 // MODÈLE — exemple d'introduction à observer avant de créer (étape « Observer »).
 // Input avant output : on remarque le genre (accroche, structure, ton) d'abord.
 export const MODELE = {
+  // Audio-modèle (facultatif). Pour faire écouter une vraie voix : déposez un
+  // fichier dans le dossier `public/`, puis indiquez son chemin ici.
+  // Fichier attendu : public/modele-intro.m4a (enregistré par Dr. Brisson).
+  audio: "/modele-intro.m4a",
   // L'introduction-modèle, telle qu'on l'entendrait.
   texte:
     "Qui aurait pensé que moi, passionnée de cinéma depuis l'enfance, je me retrouverais à Harvard à étudier le journalisme en français ? Bonjour et bienvenue ! Je m'appelle Léa, et je suis étudiante en deuxième année. On me dit souvent que je suis curieuse et déterminée — deux qualités qui me définissent bien. Je veux que ce podcast soit un espace pour explorer des histoires qui comptent. J'avoue que je doute parfois de mon français, mais je suis ravie que ce cours me pousse à parler. Alors, installez-vous confortablement : ça commence maintenant.",
@@ -380,6 +523,9 @@ export type RxRule = {
   label: string;
   fonction: string; // ce que la structure FAIT dans une intro (fonction communicative)
   fonction_en: string;
+  diction: string; // comment la DIRE à l'oral pour que la fonction « passe » (étape « Repérer »)
+  diction_en: string;
+  modele: string; // la phrase du modèle (étape « Observer ») où on voit la structure
   test?: RegExp;
   essayer: string;
   exemple: string;
@@ -391,15 +537,21 @@ export const RX: RxRule[] = [
     label: "Une question d'accroche (formes interrogatives)",
     fonction: "capter l'auditeur",
     fonction_en: "grab the listener",
+    diction: "Faites monter la voix en fin de question — l'intonation montante tend la perche à l'auditeur.",
+    diction_en: "Let your pitch rise at the end of the question — rising intonation reaches out to the listener.",
+    modele: "Qui aurait pensé que moi… je me retrouverais à étudier le journalisme en français ?",
     test: /\?|\bqui aurait\b|\best-ce que\b|\bqu['’]est-ce\b|\bpourquoi\b|\bcomment\b/i,
     essayer: "Pour accrocher l'auditeur dès le début, essayez une vraie question.",
     exemple: "« Qui aurait pensé que moi, … ? »",
   },
   {
     id: "opinion",
-    label: "Verbes d'opinion / déclaratifs",
+    label: "Verbes d'opinion / déclaratifs (+ indicatif)",
     fonction: "affirmer qui vous êtes",
     fonction_en: "establish who you are",
+    diction: "Ton posé et descendant : l'indicatif affirme. Marquez « je pense / on me dit », puis enchaînez sans hésiter.",
+    diction_en: "Steady, falling tone: the indicative asserts. Land 'je pense / on me dit', then flow on without hesitating.",
+    modele: "On me dit souvent que je suis curieuse et déterminée.",
     test: /\b(je pense|je crois|je trouve|je dis|on (m['’]a )?dit|je considère|selon moi|à mon avis|j['’]estime)\b/i,
     essayer: "Pour vous présenter avec assurance, dites ce que vous pensez ou ce qu'on vous dit.",
     exemple: "« On me dit souvent que je suis curieux/se. »",
@@ -409,7 +561,10 @@ export const RX: RxRule[] = [
     label: "« je veux que » / « il faut que » (+ subjonctif)",
     fonction: "annoncer vos intentions",
     fonction_en: "state your intentions",
-    test: /\b(je veux que|il faut que|j['’]aimerais que|je souhaite que|il faudrait que)\b/i,
+    diction: "Appuyez sur le verbe au subjonctif — c'est là que vit votre intention (« je veux que ce podcast SOIT… »).",
+    diction_en: "Stress the subjunctive verb — that's where your intention lives ('je veux que ce podcast SOIT…').",
+    modele: "Je veux que ce podcast soit un espace pour explorer des histoires qui comptent.",
+    test: /\b(je veux que|il faut que|j['’]aimerais que|je souhaite que|il faudrait que|il est nécessaire que)\b/i,
     essayer: "Pour dire ce que vous voulez accomplir, essayez « je veux que… » ou « il faut que… ».",
     exemple: "« Je veux que ce podcast me fasse progresser à l'oral. »",
   },
@@ -418,6 +573,9 @@ export const RX: RxRule[] = [
     label: "Subjonctif de l'émotion / du doute",
     fonction: "nuancer, montrer votre personnalité",
     fonction_en: "add nuance, show personality",
+    diction: "Ralentissez un peu et laissez l'émotion s'entendre sur « je doute que / je suis ravi.e que » — la nuance est dans la voix.",
+    diction_en: "Slow down a little and let the feeling come through on 'je doute que / je suis ravi.e que' — the nuance is in the voice.",
+    modele: "Je doute parfois de mon français, mais je suis ravie que ce cours me pousse à parler.",
     test: /\b(je suis (content|contente|heureux|heureuse|ravi|ravie|triste|surpris|surprise|fier|fière)[^.?!]*que|j['’]ai peur que|je doute que|bien que|il est possible que|je crains que)\b/i,
     essayer: "Pour donner de la nuance, exprimez une émotion ou un doute au subjonctif.",
     exemple: "« Je suis ravi.e que ce cours soit en français. »",
@@ -428,75 +586,76 @@ export const RX: RxRule[] = [
     label: "4 à 6 qualités professionnelles",
     fonction: "vous décrire précisément",
     fonction_en: "describe yourself precisely",
+    diction: "Énumérez avec du rythme : une petite pause entre chaque qualité, et montez légèrement avant la dernière.",
+    diction_en: "List them with rhythm: a small pause between each quality, and lift your pitch slightly before the last one.",
+    modele: "Je suis curieuse et déterminée.",
+    test: /\b(curieux|curieuse|rigoureux|rigoureuse|créatif|créative|déterminé|ambitieux|ambitieuse|polyvalent|sérieux|sérieuse)\b/i,
     essayer: "Pour vous décrire précisément, choisissez entre 4 et 6 qualités dans « Construire ».",
-    exemple: "curieux.se · rigoureux.se · créatif.ve …",
+    exemple: "« Je suis curieuse, rigoureuse et déterminée. »",
   },
 ];
 
-// PRON — mots difficiles. Affichés dans « Prononcer » s'ils apparaissent
-// dans le script (sinon, on montre la sélection par défaut ci-dessous).
-export type PronEntry = { mot: string; decoupe: string; astuce: string };
-
-export const PRON: PronEntry[] = [
-  { mot: "journalisme", decoupe: "jour·na·lisme", astuce: "« j » doux comme dans « jour » ; le « e » final est muet." },
-  { mot: "curieux", decoupe: "cu·ri·eux", astuce: "« eux » = son [ø], bouche bien arrondie." },
-  { mot: "rigoureux", decoupe: "ri·gou·reux", astuce: "« gou » comme « goût » ; « eux » arrondi." },
-  { mot: "créatif", decoupe: "cré·a·tif", astuce: "Détachez « cré-a » ; le « f » se prononce." },
-  { mot: "passionne", decoupe: "pa·ssio·nne", astuce: "« ssio » = [sjɔ] ; insistez sur la syllabe « ssio »." },
-  { mot: "déterminé", decoupe: "dé·ter·mi·né", astuce: "Trois « é » fermés : dé-…-né. Gardez-les nets." },
-  { mot: "rigueur", decoupe: "ri·gueur", astuce: "« gueur » = [gœʁ], le « r » final racle légèrement." },
-  { mot: "ambitieux", decoupe: "am·bi·tieux", astuce: "« tieux » = [sjø] ; « am » est nasal." },
-  { mot: "analyse", decoupe: "a·na·lyse", astuce: "Le « y » se dit [i] ; le « s » entre voyelles = [z]." },
-  { mot: "polyvalent", decoupe: "po·ly·va·lent", astuce: "« en » nasal à la fin ; ne prononcez pas le « t »." },
-  { mot: "français", decoupe: "fran·çais", astuce: "« ç » = [s] ; « ais » final = [ɛ], le « s » est muet." },
-];
-
-// Sélection par défaut si aucun mot de PRON n'est trouvé dans le script.
-export const PRON_DEFAUT = ["journalisme", "curieux", "français"];
-
-// En vous réécoutant — sur quoi porter l'attention (étape « Prononcer »).
+// En vous entraînant — sur quoi porter l'attention (delivery B2, étape « Prononcer »).
 export const FOCUS_ECOUTE: { fr: string; en: string }[] = [
-  { fr: "Votre débit : ni trop vite, ni trop lent ?", en: "Your pace: not too fast, not too slow?" },
-  { fr: "Vos pauses : tombent-elles aux bons endroits ?", en: "Your pauses: do they fall in the right places?" },
-  { fr: "Les mots difficiles : sont-ils clairs ?", en: "The tricky words: are they clear?" },
-  { fr: "Votre intonation : est-elle vivante ?", en: "Your intonation: is it lively?" },
+  { fr: "Intonation : elle monte sur les questions, descend sur les affirmations ?", en: "Intonation: rising on questions, falling on statements?" },
+  { fr: "Mise en relief : le mot important de chaque phrase ressort-il ?", en: "Emphasis: does the key word of each sentence stand out?" },
+  { fr: "Liaisons et enchaînements : sont-ils naturels (« vous_êtes », « deux_ans ») ?", en: "Liaisons and linking: do they flow naturally ('vous_êtes', 'deux_ans')?" },
+  { fr: "Groupes de souffle : vos pauses suivent-elles le sens ?", en: "Breath groups: do your pauses follow the meaning?" },
+  { fr: "Le naturel : ça sonne parlé, pas lu ?", en: "Naturalness: does it sound spoken, not read?" },
 ];
 
-// Amorces de réflexion (métacognition) — l'étudiant.e complète après écoute.
+// Amorces de réflexion (métacognition) — l'étudiant.e complète après s'être entraîné.e.
 export const REFLEXION: string[] = [
   "Je remarque que…",
-  "C'était fluide / saccadé parce que…",
-  "Le mot le plus difficile était…",
+  "L'intonation était juste / à revoir sur…",
+  "La structure la plus difficile à dire était…",
   "La prochaine fois, je vais…",
 ];
 
-// CHECKS — auto-vérification finale (« Prêt.e »). Commence par la communication
-// (« est-ce que je me fais comprendre ? ») avant la forme — fluidité avant perfection.
-export const CHECKS: { id: string; label: string; en: string }[] = [
+// CHECKS — mise au point finale (« Avant de soumettre »), alignée 1:1 sur les
+// critères de la grille. Chaque item : ce qu'on vérifie + `cible`, une piste
+// concrète pour viser le haut de la grille (cibler son meilleur, pas juste cocher).
+export const CHECKS: {
+  id: string;
+  label: string;
+  en: string;
+  cible: string;
+  cible_en: string;
+}[] = [
   {
-    id: "communication",
-    label: "Un.e auditeur.rice comprend qui je suis après 1 à 2 minutes.",
-    en: "A listener understands who I am after 1–2 minutes.",
-  },
-  {
-    id: "contenu",
-    label: "Mon épisode est personnel et me ressemble.",
-    en: "My episode is personal and sounds like me.",
+    id: "organisation",
+    label: "Mon épisode a une ouverture nette, un développement et une clôture.",
+    en: "My episode has a clear opening, a middle, and a close.",
+    cible: "Pour viser le haut : une accroche qui donne envie d'écouter et une dernière phrase mémorable.",
+    cible_en: "To aim high: a hook that makes them want to listen, and a memorable last line.",
   },
   {
     id: "oral",
-    label: "Mes phrases se disent d'un débit naturel — ça sonne parlé, pas lu.",
-    en: "My sentences flow at a natural pace — it sounds spoken, not read.",
+    label: "Mes phrases sont variées et se disent d'un débit naturel.",
+    en: "My sentences are varied and flow at a natural pace.",
+    cible: "Pour viser le haut : variez la longueur des phrases et faites vivre l'intonation.",
+    cible_en: "To aim high: vary your sentence length and let your intonation come alive.",
   },
   {
     id: "grammaire",
-    label: "J'utilise des structures de l'Unité 1 pour accrocher, affirmer et nuancer.",
+    label: "J'utilise les structures de l'Unité 1 pour accrocher, affirmer et nuancer.",
     en: "I use Unit 1 structures to hook, assert, and add nuance.",
+    cible: "Pour viser le haut : au moins une question d'accroche, une opinion et un subjonctif, bien placés.",
+    cible_en: "To aim high: at least one hook question, one opinion, and one subjunctive — well placed.",
   },
   {
     id: "vocabulaire",
-    label: "J'ai utilisé 4 à 6 qualités professionnelles.",
-    en: "I used 4–6 professional qualities.",
+    label: "J'emploie 4 à 6 qualités, avec un vocabulaire précis.",
+    en: "I use 4–6 qualities, with precise vocabulary.",
+    cible: "Pour viser le haut : préférez un mot précis à un mot général (« rigoureux.se » plutôt que « bien »).",
+    cible_en: "To aim high: choose a precise word over a general one ('rigorous' over 'good').",
+  },
+  {
+    id: "contenu",
+    label: "Mon épisode est personnel et créatif — il me ressemble.",
+    en: "My episode is personal and creative — it sounds like me.",
+    cible: "Pour viser le haut : un détail ou une anecdote que vous seul.e pouvez raconter.",
+    cible_en: "To aim high: a detail or anecdote only you could tell.",
   },
 ];
 

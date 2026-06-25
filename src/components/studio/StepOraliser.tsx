@@ -3,7 +3,6 @@
 import { useStudio } from "@/components/studio-context";
 import { splitSentences, analyzeOral } from "@/lib/studio";
 import { Gloss } from "@/components/Gloss";
-import { PeerTask } from "@/components/studio/PeerTask";
 
 export default function StepOraliser() {
   const { fullScript } = useStudio();
@@ -12,10 +11,11 @@ export default function StepOraliser() {
   if (sentences.length === 0) {
     return (
       <Gloss
-        en="Nothing to work on yet — come back after writing your script."
+        en="Write your script above first — then we'll spot any sentences that 'sound written'."
         className="rounded-xl border border-border bg-surface p-6 text-muted"
       >
-        Rien à oraliser pour l’instant — revenez après avoir écrit votre script.
+        Écrivez d’abord votre script ci-dessus — on repèrera ensuite les phrases
+        qui « sonnent écrit ».
       </Gloss>
     );
   }
@@ -67,11 +67,6 @@ export default function StepOraliser() {
           ))}
         </ul>
       )}
-
-      <PeerTask en="Read a sentence to a partner twice — the 'written' version, then your spoken version. Which sounds more natural?">
-        Lisez une phrase à un.e camarade, deux fois : la version « écrite », puis
-        votre version orale. Laquelle sonne plus naturelle ?
-      </PeerTask>
     </div>
   );
 }

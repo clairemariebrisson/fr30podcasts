@@ -7,13 +7,13 @@ import {
   useRef,
   useState,
 } from "react";
-import type { StepId } from "@/data/podcast0";
+import { BRIQUES, type StepId } from "@/data/podcast0";
 
 export type ScriptKey = "intro" | "contenu" | "conclusion";
 
 type Saved = {
   selected: string[];
-  script: Record<ScriptKey, string>;
+  bricks: Record<string, string>; // brique id -> texte de l'étudiant.e
   checks: Record<string, boolean>;
   notes: Record<string, string>;
 };
@@ -22,10 +22,11 @@ type StudioState = Saved & {
   step: StepId;
   setStep: (s: StepId) => void;
   toggle: (terme: string) => void;
-  setSection: (key: ScriptKey, value: string) => void;
+  setBrick: (id: string, value: string) => void;
   setCheck: (id: string, value: boolean) => void;
   setNote: (id: string, value: string) => void;
-  fullScript: string;
+  script: Record<ScriptKey, string>; // dérivé des briques
+  fullScript: string; // dérivé des briques
   loaded: boolean;
 };
 
@@ -33,12 +34,20 @@ const STORAGE_KEY = "fr30-podcast0-studio";
 
 const EMPTY: Saved = {
   selected: [],
-  script: { intro: "", contenu: "", conclusion: "" },
+  bricks: {},
   checks: {},
   notes: {},
 };
 
 const StudioContext = createContext<StudioState | null>(null);
+
+// Assemble les briques d'une section en un texte (dans l'ordre de BRIQUES).
+function sectionText(bricks: Record<string, string>, section: ScriptKey) {
+  return BRIQUES.filter((b) => b.section === section)
+    .map((b) => (bricks[b.id] ?? "").trim())
+    .filter(Boolean)
+    .join(" ");
+}
 
 export function StudioProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<Saved>(EMPTY);
@@ -56,7 +65,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setData({
           selected: parsed.selected ?? [],
-          script: { ...EMPTY.script, ...(parsed.script ?? {}) },
+          bricks: parsed.bricks ?? {},
           checks: parsed.checks ?? {},
           notes: parsed.notes ?? {},
         });
@@ -91,8 +100,8 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     }));
   }
 
-  function setSection(key: ScriptKey, value: string) {
-    setData((d) => ({ ...d, script: { ...d.script, [key]: value } }));
+  function setBrick(id: string, value: string) {
+    setData((d) => ({ ...d, bricks: { ...d.bricks, [id]: value } }));
   }
 
   function setCheck(id: string, value: boolean) {
@@ -103,11 +112,13 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, notes: { ...d.notes, [id]: value } }));
   }
 
-  const fullScript = [
-    data.script.intro,
-    data.script.contenu,
-    data.script.conclusion,
-  ]
+  const script: Record<ScriptKey, string> = {
+    intro: sectionText(data.bricks, "intro"),
+    contenu: sectionText(data.bricks, "contenu"),
+    conclusion: sectionText(data.bricks, "conclusion"),
+  };
+
+  const fullScript = [script.intro, script.contenu, script.conclusion]
     .filter(Boolean)
     .join("\n\n");
 
@@ -118,9 +129,10 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         step,
         setStep,
         toggle,
-        setSection,
+        setBrick,
         setCheck,
         setNote,
+        script,
         fullScript,
         loaded,
       }}

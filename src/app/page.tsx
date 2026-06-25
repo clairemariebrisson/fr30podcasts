@@ -12,6 +12,13 @@ import {
   grilleNiveaux,
 } from "@/data/podcast0";
 
+const HERO_LINKS = [
+  { href: "#objectif", num: "01", label: "Objectif" },
+  { href: "#studio", num: "02", label: "Studio" },
+  { href: "#enregistrement", num: "03", label: "Enregistrement" },
+  { href: "#evaluation", num: "04", label: "Évaluation" },
+];
+
 function SectionHeading({
   num,
   children,
@@ -36,19 +43,39 @@ export default function Home() {
       <main id="top" className="flex-1">
         {/* Hero */}
         <section className="border-b border-border bg-gradient-to-b from-primary-soft/60 to-background">
-          <div className="mx-auto max-w-5xl px-5 py-16 sm:py-20">
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-              French 30 · Le Podcast Français de Harvard
-            </p>
-            <h1 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
-              {meta.title}
-            </h1>
-            <p className="mt-2 text-xl italic text-muted">{meta.subtitle}</p>
-            <div className="mt-6 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full bg-surface px-4 py-1.5 font-medium shadow-sm ring-1 ring-border">
-                {meta.length}
-              </span>
+          <div className="mx-auto flex max-w-5xl flex-col gap-10 px-5 py-16 sm:py-20 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-primary">
+                French 30 · Le Podcast Français de Harvard
+              </p>
+              <h1 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+                {meta.title}
+              </h1>
+              <p className="mt-2 text-xl italic text-muted">{meta.subtitle}</p>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm">
+                <span className="rounded-full bg-surface px-4 py-1.5 font-medium shadow-sm ring-1 ring-border">
+                  {meta.length}
+                </span>
+              </div>
             </div>
+
+            {/* Navigation par sections — boutons élégants */}
+            <nav className="grid w-full grid-cols-2 gap-3 md:w-auto md:max-w-xs">
+              {HERO_LINKS.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className="group rounded-xl border border-border bg-surface/80 px-4 py-3 shadow-sm ring-1 ring-transparent transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                >
+                  <span className="block text-xs font-semibold uppercase tracking-wide text-primary">
+                    {l.num}
+                  </span>
+                  <span className="mt-0.5 block font-serif text-lg text-foreground">
+                    {l.label}
+                  </span>
+                </a>
+              ))}
+            </nav>
           </div>
         </section>
 
@@ -154,13 +181,13 @@ export default function Home() {
           <section id="studio">
             <SectionHeading num={2}>Studio — préparez votre épisode</SectionHeading>
             <Gloss
-              en="Seven guided steps, from a model to the mic. Observe an example, build your script, notice your structures, make your sentences speakable, set the pacing, rehearse — then record on your device and upload to Canvas."
+              en="Six guided steps following the PACE model: observe a model, notice the structures, co-build your script, check it, dare to step away from it — then record on your device and upload to Canvas."
               className="mb-8 max-w-3xl text-foreground/85"
             >
-              Sept étapes guidées, du modèle au micro. Observez un exemple,
-              construisez votre script, repérez vos structures, rendez vos
-              phrases parlables, réglez le rythme, entraînez-vous — puis
-              enregistrez sur votre appareil et déposez sur Canvas.
+              Six étapes guidées, selon le modèle PACE : observez un modèle,
+              repérez les structures, co-construisez votre script, vérifiez-le,
+              osez vous en éloigner — puis enregistrez sur votre appareil et
+              déposez sur Canvas.
             </Gloss>
             <Studio />
           </section>

@@ -12,12 +12,13 @@ export default function StepPret() {
   return (
     <div className="space-y-6">
       <Gloss
-        en="One last read-through, at your own pace. Check what's true for you — this isn't a grade, just a last breath before recording."
+        en="Each item below is a rubric criterion. Check what's true for you — and use the « to aim high » tip to target your best before you record. Not a grade; a last push."
         className="text-foreground/85"
       >
-        Une dernière relecture, à votre rythme. Cochez ce qui est vrai pour
-        vous — ceci n’est pas une note, juste un dernier souffle avant
-        d’enregistrer.
+        Chaque point ci-dessous correspond à un critère de la grille. Cochez ce
+        qui est vrai pour vous — et servez-vous de l’astuce « pour viser le
+        haut » pour cibler votre meilleur avant d’enregistrer. Pas une note : un
+        dernier élan.
       </Gloss>
 
       <ul className="space-y-2">
@@ -25,33 +26,44 @@ export default function StepPret() {
           const on = !!checks[c.id];
           return (
             <li key={c.id}>
-              <button
-                type="button"
-                onClick={() => setCheck(c.id, !on)}
-                className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left transition-all ${
+              <div
+                className={`rounded-xl border p-4 transition-all ${
                   on
                     ? "border-accent/40 bg-accent-soft/40"
-                    : "border-border bg-surface hover:border-primary/40"
+                    : "border-border bg-surface"
                 }`}
               >
-                <span
-                  className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-sm ${
-                    on
-                      ? "border-accent bg-accent text-white"
-                      : "border-border text-transparent"
-                  }`}
+                <button
+                  type="button"
+                  onClick={() => setCheck(c.id, !on)}
+                  className="flex w-full items-start gap-3 text-left"
                 >
-                  ✓
-                </span>
+                  <span
+                    className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-sm ${
+                      on
+                        ? "border-accent bg-accent text-white"
+                        : "border-border text-transparent"
+                    }`}
+                  >
+                    ✓
+                  </span>
+                  <Gloss
+                    as="span"
+                    en={c.en}
+                    className="font-medium text-foreground"
+                    glossClassName="mt-0.5 block text-sm font-normal italic text-muted"
+                  >
+                    {c.label}
+                  </Gloss>
+                </button>
                 <Gloss
-                  as="span"
-                  en={c.en}
-                  className="text-foreground"
-                  glossClassName="mt-0.5 block text-sm italic text-muted"
+                  en={c.cible_en}
+                  className="mt-2 pl-9 text-sm text-primary"
+                  glossClassName="mt-0.5 block italic text-muted"
                 >
-                  {c.label}
+                  {c.cible}
                 </Gloss>
-              </button>
+              </div>
             </li>
           );
         })}
