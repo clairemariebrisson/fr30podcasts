@@ -27,6 +27,14 @@
   --on-accent: #ffffff;
 }
 
+/* Podcast 2 — accent vert vigne (terroir). Teinte foncée en mode clair pour
+   rester lisible en texte sur blanc et sous du texte blanc. */
+.theme-vigne {
+  --accent: #4f7a28;          /* vert vigne (AA sur blanc) */
+  --accent-soft: #e8f1da;     /* vert pâle */
+  --on-accent: #ffffff;
+}
+
 /* En mode sombre, on redéfinit les mêmes variables : tout le site (qui
    utilise déjà var(--…)) s'adapte sans toucher aux composants. */
 .dark {
@@ -48,6 +56,14 @@
   --accent: #e2a93d;          /* marigold clair */
   --accent-soft: #36280f;
   --on-accent: #2a2010;
+}
+
+/* Vert vigne en mode sombre : teinte claire (lisible sur fond sombre), avec un
+   texte vert très foncé posé par-dessus les aplats accent. */
+.dark .theme-vigne {
+  --accent: #9ccb6a;          /* vert clair */
+  --accent-soft: #20301a;
+  --on-accent: #16210d;
 }
 
 @theme inline {
