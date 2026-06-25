@@ -5,6 +5,7 @@ import { useStudio } from "@/components/studio-context";
 import { Gloss } from "@/components/Gloss";
 import { PeerTask } from "@/components/studio/PeerTask";
 import { Reflection } from "@/components/studio/Reflection";
+import { ScriptComplet } from "@/components/studio/ScriptComplet";
 
 export default function StepVerifier() {
   const { fullScript, selected } = useStudio();
@@ -109,6 +110,19 @@ export default function StepVerifier() {
           </li>
         ))}
       </ul>
+
+      <Gloss
+        en="Here's your script, assembled from your bricks — read it aloud. This is your first version: you'll record it as-is, then loosen up in Oser."
+        className="text-sm text-foreground/85"
+      >
+        Voici votre script, assemblé à partir de vos briques — lisez-le à voix
+        haute. C’est votre première version : vous l’enregistrerez tel quel,
+        puis vous vous libérerez à l’étape Oser.
+      </Gloss>
+      <ScriptComplet
+        titleFr="Votre script — première version à enregistrer"
+        titleEn="Your script — first version to record"
+      />
 
       <Reflection
         id="verifier-reflexion"
