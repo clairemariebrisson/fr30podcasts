@@ -594,57 +594,58 @@ export const recording = {
 // Grille d'évaluation du Podcast 2 : 5 critères sur 20 points chacun, soit /100.
 export type Critere = { critere: string; axe: string; niveaux: string[] };
 
-// Grille standard, identique à celle du Podcast 1 (ne change pas d'un podcast
-// à l'autre) : 5 critères sur 20 points chacun, soit /100.
+// Grille propre au Podcast 2 (mini-pub vidéo, en solo) : même gabarit que les
+// autres podcasts (5 critères sur 20 points, 4 niveaux), descripteurs adaptés
+// à la pub de terroir et aux structures de l'Unité 2. Soit /100.
 export const grilleCriteres: Critere[] = [
   {
-    critere: "Organisation des idées",
-    axe: "genre & cohérence",
+    critere: "Organisation de la pub",
+    axe: "structure & rythme",
     niveaux: [
-      "Plan limpide et créatif ; transitions nettes ; l'épisode se suit sans effort, du début à la conclusion.",
-      "Plan logique et clair ; début et conclusion présents pour chaque point ; quelques flottements.",
-      "Organisation faible ; idées peu développées ; début / conclusion peu marqués.",
-      "Peu de structure ; développement insuffisant ; idées éparses.",
+      "Les quatre temps (accroche, terroir, produit, appel) s'enchaînent avec naturel ; l'accroche capte l'attention dès les premières secondes ; le slogan final reste en tête ; 1 à 2 min sans temps mort.",
+      "Les quatre temps sont présents et clairs ; accroche et slogan efficaces ; quelques transitions abruptes ou une durée un peu hors cible.",
+      "Un des quatre temps manque ou reste flou ; accroche ou slogan peu marqués ; rythme inégal.",
+      "Pas de structure de pub reconnaissable ; plusieurs temps absents ; durée très éloignée de 1 à 2 min.",
     ],
   },
   {
-    critere: "Expression orale & interaction",
-    axe: "Partie 1 — spontanéité, registre, relances",
+    critere: "Expression orale & mise en voix",
+    axe: "prononciation, débit, ton",
     niveaux: [
-      "Échange vivant et vraiment spontané ; questions ouvertes et informelles ; relances naturelles ; registre oral parfaitement choisi ; riche variété de structures.",
-      "Bon échange ; questions surtout informelles ; relances présentes ; registre adapté ; débit assez fluide.",
-      "Échange peu spontané ; questions simples ou fermées ; relances rares ; registre parfois mal choisi ; débit hésitant.",
-      "Lecture plutôt qu'interaction ; pas de relances ; registre inadapté ; débit très haché.",
+      "Voix claire et expressive, avec un ton qui donne envie ; débit maîtrisé, accordé au montage ; prononciation soignée ; le texte est dit et raconté, sans effet de lecture.",
+      "Voix claire et ton adapté ; débit assez fluide ; quelques hésitations ou erreurs de prononciation qui ne gênent pas la compréhension.",
+      "Texte audible mais lu de façon monotone ; débit hésitant ou trop rapide ; des erreurs de prononciation gênent parfois.",
+      "Voix difficile à comprendre (débit, prononciation, ou musique qui couvre la voix) ; lecture très hachée.",
     ],
   },
   {
-    critere: "Grammaire & registre",
-    axe: "Partie 2 — structures-cibles de l'unité",
+    critere: "Grammaire : les structures de l'Unité 2",
+    axe: "structures-cibles",
     niveaux: [
-      "Cibles employées avec aisance et justesse — subjonctif (il est dommage / je doute / il faut que…), négation avec indéfini (personne ne, rien ne, aucun… ne), pas de pronom après verbe de préférence + infinitif ; au service du sens.",
-      "Cibles présentes et globalement correctes ; quelques erreurs évitables sur ces structures.",
-      "Cibles tentées mais incomplètes ou souvent erronées ; plusieurs structures manquantes.",
-      "Cibles absentes ou erronées ; erreurs grammaticales excessives.",
+      "Structures employées avec aisance et au service de l'histoire : imparfait (le décor d'autrefois) et passé composé (le moment clé) ; adjectifs mélioratifs bien accordés ; conditionnel pour faire rêver ; un connecteur d'opposition (tandis que, alors que, en revanche) ; une mise en relief (ce qui…, c'est…).",
+      "Structures présentes et globalement correctes ; quelques erreurs évitables (accords, choix imparfait / passé composé).",
+      "Structures tentées mais incomplètes ou souvent erronées ; deux ou trois structures manquent.",
+      "Structures absentes ou erronées ; les erreurs gênent la compréhension.",
     ],
   },
   {
-    critere: "Vocabulaire thématique",
+    critere: "Vocabulaire du terroir et de la pub",
     axe: "forme (lexique)",
     niveaux: [
-      "Lexique riche, précis et nuancé ; vocabulaire journalistique bien employé.",
-      "Bon vocabulaire ; une diversification profiterait à certains passages.",
-      "Vocabulaire correct mais répétitif ; quelques emplois inexacts.",
-      "Vocabulaire trop pauvre ; erreurs lexicales excessives.",
+      "Lexique riche et précis : le terroir (savoir-faire, récolte, climat, appellation, AOP / IGP…) et la langue qui vend (adjectifs variés, images sensorielles) ; le texte à l'écran est correct.",
+      "Bon vocabulaire ; quelques répétitions (bon, très, beaucoup) ; une ou deux fautes dans le texte à l'écran.",
+      "Vocabulaire correct mais général ou répétitif ; quelques emplois inexacts ; texte à l'écran souvent fautif.",
+      "Vocabulaire trop pauvre ; erreurs lexicales nombreuses.",
     ],
   },
   {
-    critere: "Contenu & regard culturel",
-    axe: "contenu, culture & contexte",
+    critere: "Contenu, genre & regard culturel",
+    axe: "terroir, culture & contexte",
     niveaux: [
-      "Très créatif et personnalisé ; reformulation journalistique convaincante ; faits et spéculation nettement distingués ; compréhension du genre du micro-trottoir au-delà des attentes.",
-      "Créatif et personnalisé ; reformulation efficace ; bonne compréhension du genre.",
-      "Assez créatif ; reformulation partielle ; compréhension du genre limitée.",
-      "Peu de créativité ou de personnalisation ; reformulation absente ; faible compréhension du genre.",
+      "Un vrai terroir du monde francophone, présenté avec au moins deux faits exacts (lieu, climat, savoir-faire, label) et un lien clair entre le lieu et le goût ; on y croit comme à une vraie pub (Reels, TikTok ou tourisme) : images du produit et du lieu, texte à l'écran, musique qui laisse entendre la voix ; une création personnelle.",
+      "Terroir réel et bien présenté ; le genre de la pub est bien compris ; images ou texte à l'écran un peu moins travaillés.",
+      "Terroir peu situé ou faits vagues ; la vidéo ressemble davantage à un exposé qu'à une pub ; peu d'images du lieu ou du produit.",
+      "Produit sans lien avec un terroir, ou inventé ; genre non compris (visage seul, ni images du produit ni texte à l'écran).",
     ],
   },
 ];
